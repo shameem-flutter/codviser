@@ -13,11 +13,11 @@ const styles = `
   }
 
   :root {
-    --bg:       #00416A;
-    --text:     #F0EAD6;
-    --lime:     #F0EAD6;
-    --muted:    rgba(240, 234, 214, 0.5);
-    --border:   rgba(240, 234, 214, 0.15);
+    --bg:       #F0EAD6;
+    --text:     #00416A;
+    --lime:     #00416A;
+    --muted:    rgba(0, 65, 106, 0.5);
+    --border:   rgba(0, 65, 106, 0.15);
     --nav-h:    72px;
     --mob-nav-h: 60px;
     --pad-x:    80px;
@@ -83,7 +83,7 @@ const styles = `
   .cursor-ring {
     width: 36px;
     height: 36px;
-    border: 1px solid rgba(200,255,0,0.3);
+    border: 1px solid rgba(0,65,106,0.3);
     border-radius: 50%;
     position: fixed;
     top: 0; left: 0;
@@ -133,10 +133,10 @@ const styles = `
   /* scrolled state */
   .navbar.scrolled {
     height: 72px;
-    background: rgba(0,65,106,0.85);
+    background: rgba(240,234,214,0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom-color: rgba(240,234,214,0.06);
+    border-bottom-color: rgba(0,65,106,0.06);
   }
 
   /* ── Dot-grid pattern (lives inside header only) ── */
@@ -144,7 +144,7 @@ const styles = `
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, rgba(240,234,214,0.07) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(0,65,106,0.07) 1px, transparent 1px);
     background-size: 24px 24px;
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
     mask-image:         linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
@@ -180,7 +180,7 @@ const styles = `
     font-family: 'Syne', sans-serif;
     font-weight: 700;
     font-size: 20px;
-    color: #F0EAD6;
+    color: #00416A;
     letter-spacing: 0.04em;
     line-height: 1;
   }
@@ -208,7 +208,7 @@ const styles = `
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: rgba(240,237,230,0.55);
+    color: rgba(0,65,106,0.55);
     text-decoration: none;
     position: relative;
     padding-bottom: 4px;
@@ -228,7 +228,7 @@ const styles = `
   }
 
   .nav-links a:hover,
-  .nav-links a.active { color: #F0EAD6; }
+  .nav-links a.active { color: #00416A; }
 
   .nav-links a:hover::after,
   .nav-links a.active::after { width: 100%; }
@@ -237,7 +237,7 @@ const styles = `
   .nav-divider {
     width: 1px;
     height: 18px;
-    background: rgba(240,234,214,0.1);
+    background: rgba(0,65,106,0.1);
     flex-shrink: 0;
   }
 
@@ -248,7 +248,7 @@ const styles = `
     gap: 6px;
     padding: 8px 18px;
     border-radius: 999px;
-    border: 1px solid rgba(200,255,0,0.4);
+    border: 1px solid rgba(0,65,106,0.4);
     background: transparent;
     color: var(--lime);
     font-family: 'DM Mono', monospace;
@@ -267,7 +267,7 @@ const styles = `
 
   .nav-cta:hover {
     background: var(--lime);
-    color: #00416A;
+    color: #F0EAD6;
     border-color: var(--lime);
   }
 
@@ -292,7 +292,7 @@ const styles = `
     display: block;
     width: 20px;
     height: 1.5px;
-    background: #F0EAD6;
+    background: #00416A;
     transition: transform 0.3s ease, opacity 0.3s ease;
     transform-origin: center;
   }
@@ -301,7 +301,7 @@ const styles = `
   .mobile-overlay {
     position: fixed;
     inset: 0;
-    background: #00416A;
+    background: #F0EAD6;
     z-index: 99;
     display: flex;
     flex-direction: column;
@@ -333,7 +333,7 @@ const styles = `
     font-family: 'Syne', sans-serif;
     font-size: 32px;
     font-weight: 700;
-    color: #F0EAD6;
+    color: #00416A;
     text-decoration: none;
     letter-spacing: -0.01em;
     transition: color 0.2s ease;
@@ -353,13 +353,23 @@ const styles = `
      SECTIONS — shared snap rules
   ════════════════════════════════════════ */
   .section {
-    scroll-snap-align: start;
     height: 100vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     position: relative;
     max-width: 100%;
+    /* Ensure box-sizing allows padding without increasing total height beyond 100vh */
+    box-sizing: border-box; 
+  }
+
+  /* Desktop Snap Alignment & Clearance */
+  @media (min-width: 769px) {
+    .section {
+      scroll-snap-align: start;
+      /* padding-top ensures the snap-point allows for the fixed navbar */
+      padding-top: var(--nav-h);
+    }
   }
 
   .inner {
@@ -384,8 +394,8 @@ const styles = `
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(240,234,214,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(240,234,214,0.02) 1px, transparent 1px);
+      linear-gradient(rgba(0,65,106,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,65,106,0.02) 1px, transparent 1px);
     background-size: 72px 72px;
     animation: gridDrift 28s linear infinite;
     pointer-events: none;
@@ -570,100 +580,246 @@ const styles = `
   }
 
   /* ════════════════════════════════════════
-     SERVICES
+     SECTION SHARED
   ════════════════════════════════════════ */
-  .services-section {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .services-inner {
-    padding-top: clamp(40px, 6vh, 72px);
-    padding-bottom: clamp(24px, 4vh, 48px);
-  }
-
-  .section-label {
+  .section-eyebrow {
     font-family: 'DM Mono', monospace;
-    font-size: clamp(10px, 1vw, 14px);
-    letter-spacing: 0.22em;
+    font-size: clamp(10px, 1vw, 12px);
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--lime);
-    margin-bottom: clamp(20px, 3vh, 36px);
-    flex-shrink: 0;
+    margin-bottom: 12px;
+    display: block;
   }
 
-  .services-rows {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .service-row {
-    flex: 1;
-    display: grid;
-    grid-template-columns: clamp(52px, 6vw, 80px) 1fr minmax(160px, 22vw);
-    align-items: center;
-    gap: clamp(16px, 2.5vw, 36px);
-    border-top: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-    transition: flex 0.35s ease;
-    cursor: none;
-  }
-
-  .service-row:last-child { border-bottom: 1px solid var(--border); }
-
-  /* lime fill on hover */
-  .service-row::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--lime);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-  }
-
-  .service-row:hover::before { transform: scaleY(1); }
-
-  .service-row:hover .svc-num,
-  .service-row:hover .svc-name,
-  .service-row:hover .svc-desc { color: #00416A; }
-
-  .svc-num {
-    font-family: 'DM Mono', monospace;
-    font-size: clamp(10px, 1vw, 14px);
-    color: var(--muted);
-    letter-spacing: 0.12em;
-    position: relative;
-    z-index: 1;
-    transition: color 0.35s ease;
-    padding-left: 4px;
-  }
-
-  .svc-name {
+  .section-title {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
-    font-size: clamp(36px, 4.5vw, 68px);
-    letter-spacing: -0.025em;
+    font-size: clamp(48px, 6vw, 80px);
+    letter-spacing: -0.03em;
     line-height: 1;
-    position: relative;
-    z-index: 1;
-    transition: color 0.35s ease;
-    white-space: nowrap;
+    color: var(--text);
   }
 
-  .svc-desc {
+  /* ════════════════════════════════════════
+     WHAT WE PROVIDE
+  ════════════════════════════════════════ */
+  .provide-inner {
+    padding-bottom: 40px;
+    justify-content: center;
+  }
+
+  .provide-header {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: clamp(40px, 8vh, 80px);
+  }
+  .provide-header.visible { opacity: 1; transform: translateY(0); }
+
+  .provide-grid {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    flex: 1;
+    gap: 40px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    min-height: 0;
+  }
+  .provide-grid.visible { opacity: 1; transform: translateY(0); }
+
+  .provide-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+  }
+
+  .provide-item {
+    display: flex;
+    align-items: center;
+    padding: clamp(14px, 1.8vh, 24px) 0;
+    border-bottom: 1px solid var(--border);
+    cursor: none;
+    transition: all 0.3s ease;
+    gap: 24px;
+    position: relative;
+    opacity: 0.4;
+  }
+
+  .provide-item.active {
+    opacity: 1;
+  }
+
+  .provide-item::after {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    width: 4px;
+    height: 0;
+    background: var(--lime);
+    transform: translateY(-50%);
+    transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .provide-item.active::after { height: 60%; }
+
+  .p-num {
     font-family: 'DM Mono', monospace;
-    font-size: clamp(11px, 1.1vw, 15px);
+    font-size: 13px;
     color: var(--muted);
-    text-align: right;
-    line-height: 1.65;
+    width: 24px;
+  }
+
+  .p-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(20px, 2.2vw, 28px);
+    flex: 1;
+    letter-spacing: -0.01em;
+  }
+
+  .p-arrow {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+    opacity: 0;
+  }
+  .provide-item.active .p-arrow {
+    opacity: 1;
+    transform: translateX(10px);
+  }
+
+  .provide-detail {
+    background: rgba(0, 65, 106, 0.02);
+    border: 1px solid var(--border);
+    padding: clamp(32px, 5vw, 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .detail-content {
+    animation: fadeInSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes fadeInSlide {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .detail-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 3vw, 48px);
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .detail-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(15px, 1.2vw, 18px);
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 32px;
+    max-width: 90%;
+  }
+
+  .detail-features {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .detail-features li {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ════════════════════════════════════════
+     WHY CHOOSE US
+  ════════════════════════════════════════ */
+  .why-inner {
+    padding-bottom: 40px;
+    justify-content: center;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    flex: 1;
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+  }
+  .why-grid.visible { opacity: 1; transform: translateY(0); }
+
+  .why-card {
+    padding: clamp(30px, 4vw, 60px);
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: background 0.4s ease;
+  }
+
+  .why-card:hover {
+    background: rgba(0, 65, 106, 0.03);
+  }
+
+  .why-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--lime);
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .why-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .why-card-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(14px, 1.1vw, 16px);
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 320px;
     position: relative;
     z-index: 1;
-    transition: color 0.35s ease;
-    letter-spacing: 0.02em;
+  }
+
+  .why-bg-num {
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 200px;
+    line-height: 1;
+    color: rgba(0, 65, 106, 0.03);
+    pointer-events: none;
+    user-select: none;
+    transition: all 0.6s ease;
+  }
+
+  .why-card:hover .why-bg-num {
+    transform: translateY(-20px) scale(1.1);
+    color: rgba(0, 65, 106, 0.05);
   }
 
   /* ════════════════════════════════════════
@@ -699,7 +855,7 @@ const styles = `
   }
 
   .about-section:hover .about-num {
-    -webkit-text-stroke-color: rgba(240,234,214,0.4);
+    -webkit-text-stroke-color: rgba(0,65,106,0.4);
   }
 
   .about-right {
@@ -815,7 +971,7 @@ const styles = `
     transform: translateX(-50%);
     width: 800px;
     height: 800px;
-    background: radial-gradient(circle, rgba(240,234,214,0.05) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(0,65,106,0.05) 0%, transparent 65%);
     pointer-events: none;
   }
 
@@ -909,9 +1065,9 @@ const styles = `
   .cta-btn:hover::before { transform: scaleX(1); }
 
   .cta-btn:hover {
-    color: #00416A;
+    color: #F0EAD6;
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(240,234,214,0.18);
+    box-shadow: 0 8px 32px rgba(0,65,106,0.18);
   }
 
   .cta-btn span,
@@ -1103,6 +1259,62 @@ const styles = `
       max-width: 100%;
     }
 
+    /* ─────────────────── WHAT WE PROVIDE ─────────────────── */
+    .provide-section {
+      height: auto;
+      min-height: auto;
+    }
+
+    .provide-inner {
+      padding-top: 80px;
+      padding-bottom: 48px;
+    }
+
+    .provide-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      opacity: 1;
+      transform: none;
+    }
+
+    .provide-item {
+      padding: 16px 0;
+    }
+
+    .provide-detail {
+       display: none; /* Keep detail panel off on mobile for brutalist speed */
+    }
+
+    /* ─────────────────── WHY CHOOSE US ─────────────────── */
+    .why-section {
+      height: auto;
+      min-height: auto;
+    }
+
+    .why-inner {
+      padding-top: 64px;
+      padding-bottom: 48px;
+    }
+
+    .why-grid {
+      grid-template-columns: 1fr;
+      opacity: 1;
+      transform: none;
+      border: none;
+    }
+
+    .why-card {
+      padding: 32px 24px;
+      border: 1px solid var(--border);
+      margin-bottom: -1px; /* collapse borders */
+    }
+
+    .why-bg-num {
+      font-size: 140px;
+      bottom: -10px;
+      right: -10px;
+    }
+
     /* ─────────────────── ABOUT ─────────────────── */
     .about-section {
       height: auto;
@@ -1285,9 +1497,9 @@ function Cursor() {
 ───────────────────────────────────────────── */
 const NAV_LINKS = [
   { label: 'Services', href: '#services' },
-  { label: 'Work',     href: '#hero'     },
-  { label: 'About',   href: '#about'    },
-  { label: 'Contact', href: '#contact'  },
+  { label: 'Why Us',   href: '#why-us'   },
+  { label: 'About',    href: '#about'    },
+  { label: 'Contact',  href: '#contact'  },
 ]
 
 function Navbar() {
@@ -1306,7 +1518,7 @@ function Navbar() {
 
   /* ── Active link via IntersectionObserver ── */
   useEffect(() => {
-    const sectionIds = ['hero', 'services', 'about', 'contact']
+    const sectionIds = ['hero', 'services', 'why-us', 'about', 'contact']
     const observers = []
 
     sectionIds.forEach(id => {
@@ -1446,25 +1658,126 @@ function Marquee() {
 }
 
 /* ─────────────────────────────────────────────
-   SERVICES
+   WHAT WE PROVIDE (Replaces simple Services)
 ───────────────────────────────────────────── */
-const SERVICES = [
-  { num: '01', name: 'Website Development', desc: 'Fast, scalable web experiences built to convert.' },
-  { num: '02', name: 'App Development',     desc: 'Native & cross-platform apps that users love.'   },
-  { num: '03', name: 'Ads Marketing',       desc: 'Data-driven campaigns that actually perform.'    },
+const SERVICES_DATA = [
+  { 
+    id: 's1', 
+    num: '01', 
+    title: 'Website Development', 
+    desc: 'High-performance, scalable web applications built with modern frameworks to ensure speed, security, and a seamless user experience across all devices.',
+    features: ['React & Next.js Expertise', 'SEO Optimization', 'Responsive Architecture']
+  },
+  { 
+    id: 's2', 
+    num: '02', 
+    title: 'Mobile App Development', 
+    desc: 'Native and cross-platform mobile solutions that combine intuitive UI with robust performance, helping you reach your audience wherever they are.',
+    features: ['iOS & Android', 'React Native / Flutter', 'Cloud Sync']
+  },
+  { 
+    id: 's3', 
+    num: '03', 
+    title: 'Brand Identity', 
+    desc: 'Crafting unique visual identities and strategic branding that resonate with your target audience and establish a lasting market presence.',
+    features: ['Logo Design', 'Visual Guidelines', 'Brand Voice']
+  },
+  { 
+    id: 's4', 
+    num: '04', 
+    title: 'Digital Marketing', 
+    desc: 'Data-driven marketing strategies including SEO, SEM, and social media campaigns designed to maximize your ROI and grow your online presence.',
+    features: ['PPC Campaigns', 'Content Strategy', 'Analytics & Reporting']
+  },
+  { 
+    id: 's5', 
+    num: '05', 
+    title: 'UI/UX Excellence', 
+    desc: 'User-centric design processes that focus on usability and aesthetics to create digital products that are not just beautiful, but functional and engaging.',
+    features: ['User Research', 'Wireframing & Prototyping', 'Interactive Motion']
+  },
+  { 
+    id: 's6', 
+    num: '06', 
+    title: 'Custom SaaS Solutions', 
+    desc: 'End-to-end development of sophisticated Software as a Service products tailored to solve complex business problems and scale with your growth.',
+    features: ['Multi-tenant Architecture', 'API Integration', 'Scalable Backend']
+  }
 ]
 
-function Services() {
+function WhatWeProvide() {
+  const [active, setActive] = useState(SERVICES_DATA[0])
+  const [ref, inView] = useInView(0.15)
+
   return (
-    <section className="section services-section" id="services">
-      <div className="inner services-inner">
-        <div className="section-label">— What We Do</div>
-        <div className="services-rows">
-          {SERVICES.map(s => (
-            <div className="service-row" key={s.num}>
-              <span className="svc-num">{s.num}</span>
-              <span className="svc-name">{s.name}</span>
-              <span className="svc-desc">{s.desc}</span>
+    <section className="section provide-section" id="services">
+      <div className="inner provide-inner" ref={ref}>
+        <div className={`provide-header${inView ? ' visible' : ''}`}>
+          <span className="section-eyebrow">01 — Services</span>
+          <h2 className="section-title">What We Provide</h2>
+        </div>
+        
+        <div className={`provide-grid${inView ? ' visible' : ''}`}>
+          {/* Left: Service List */}
+          <div className="provide-list">
+            {SERVICES_DATA.map(s => (
+              <div 
+                key={s.id} 
+                className={`provide-item${active.id === s.id ? ' active' : ''}`}
+                onMouseEnter={() => setActive(s)}
+                onClick={() => setActive(s)}
+              >
+                <span className="p-num">{s.num}</span>
+                <span className="p-title">{s.title}</span>
+                <div className="p-arrow">→</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Right: Detail Panel */}
+          <div className="provide-detail">
+            <div className="detail-content" key={active.id}>
+              <h3 className="detail-title">{active.title}</h3>
+              <p className="detail-desc">{active.desc}</p>
+              <ul className="detail-features">
+                {active.features.map(f => <li key={f}>{f}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─────────────────────────────────────────────
+   WHY CHOOSE US
+───────────────────────────────────────────── */
+const WHY_CARDS = [
+  { num: '01', title: 'Speed', desc: 'We deliver at startup speed without compromising on enterprise-grade stability and security.' },
+  { num: '02', title: 'Quality', desc: 'Our "brutally minimal" philosophy ensures focus on what matters: performance and usability.' },
+  { num: '03', title: 'Partnership', desc: 'We don’t just work for you; we work with you. Your goals become our engineering mission.' },
+  { num: '04', title: 'Results', desc: 'Every line of code and every pixel is measured against the value it adds to your business.' }
+]
+
+function WhyChooseUs() {
+  const [ref, inView] = useInView(0.1)
+
+  return (
+    <section className="section why-section" id="why-us">
+      <div className="inner why-inner" ref={ref}>
+        <div className={`provide-header${inView ? ' visible' : ''}`}>
+          <span className="section-eyebrow">02 — Why Us</span>
+          <h2 className="section-title">Why Choose Us</h2>
+        </div>
+
+        <div className={`why-grid${inView ? ' visible' : ''}`}>
+          {WHY_CARDS.map(card => (
+            <div className="why-card" key={card.num}>
+              <div className="why-num">{card.num}</div>
+              <h3 className="why-card-title">{card.title}</h3>
+              <p className="why-card-desc">{card.desc}</p>
+              <div className="why-bg-num">{card.num}</div>
             </div>
           ))}
         </div>
@@ -1485,7 +1798,7 @@ function About() {
       <div className="inner">
         <div className="about-inner">
           <div className="about-left">
-            <div className="about-num">04</div>
+            <div className="about-num">03</div>
           </div>
           <div className="about-right" ref={textRef}>
             <span className="about-tag">— About Codviser</span>
@@ -1593,13 +1906,16 @@ export default function App() {
           <Marquee />
         </div>
 
-        {/* Snap group 2: Services */}
-        <Services />
+        {/* Snap group 2: Services Showcase */}
+        <WhatWeProvide />
 
-        {/* Snap group 3: About */}
+        {/* Snap group 3: Why Us */}
+        <WhyChooseUs />
+
+        {/* Snap group 4: About */}
         <About />
 
-        {/* Snap group 4: CTA + Footer */}
+        {/* Snap group 5: CTA + Footer */}
         <CTA />
       </div>
     </>
