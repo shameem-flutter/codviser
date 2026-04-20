@@ -89,8 +89,15 @@ export default function Navbar() {
 
       {/* Mobile overlay */}
       <div className={`mobile-overlay${menuOpen ? ' open' : ''}`}>
-        {NAV_LINKS.map(({ label, href }) => (
-          <a key={label} href={href} onClick={close}>{label}</a>
+        {NAV_LINKS.map(({ label, href }, i) => (
+          <a 
+            key={label} 
+            href={href} 
+            onClick={close}
+            className={`reveal-up stagger-${i + 1}${menuOpen ? ' reveal-visible' : ''}`}
+          >
+            {label}
+          </a>
         ))}
       </div>
     </>

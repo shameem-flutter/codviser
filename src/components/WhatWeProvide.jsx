@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useInView } from '../hooks/useInView';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 const SERVICES_DATA = [
   { 
@@ -47,41 +48,64 @@ const SERVICES_DATA = [
 ]
 
 export default function WhatWeProvide() {
-  const [active, setActive] = useState(SERVICES_DATA[0])
+  const [activeId, setActiveId] = useState(SERVICES_DATA[0].id)
+  const isMobile = useIsMobile()
   const [ref, inView] = useInView(0.15)
+
+  const activeService = SERVICES_DATA.find(s => s.id === activeId) || SERVICES_DATA[0]
+
+  const handleToggle = (id) => {
+    if (isMobile && activeId === id) {
+      setActiveId(null) // Toggle off if already active on mobile
+    } else {
+      setActiveId(id)
+    }
+  }
 
   return (
     <section className="section provide-section" id="services">
       <div className="inner provide-inner" ref={ref}>
-        <div className={`provide-header${inView ? ' visible' : ''}`}>
+        <div className={`provide-header reveal-up${inView ? ' reveal-visible' : ''}`}>
           <span className="section-eyebrow">01 — Services</span>
           <h2 className="section-title">What We Provide</h2>
         </div>
         
-        <div className={`provide-grid${inView ? ' visible' : ''}`}>
+        <div className={`provide-grid reveal-up stagger-1${inView ? ' reveal-visible' : ''}`}>
           {/* Left: Service List */}
           <div className="provide-list">
             {SERVICES_DATA.map(s => (
               <div 
                 key={s.id} 
-                className={`provide-item${active.id === s.id ? ' active' : ''}`}
-                onMouseEnter={() => setActive(s)}
-                onClick={() => setActive(s)}
+                className={`provide-item${activeId === s.id ? ' active' : ''}`}
+                onMouseEnter={() => !isMobile && setActiveId(s.id)}
+                onClick={() => handleToggle(s.id)}
               >
-                <span className="p-num">{s.num}</span>
-                <span className="p-title">{s.title}</span>
-                <div className="p-arrow">→</div>
+                <div className="provide-item-main">
+                  <span className="p-num">{s.num}</span>
+                  <span className="p-title">{s.title}</span>
+                  <div className="p-arrow">{activeId === s.id && isMobile ? '↓' : '→'}</div>
+                </div>
+
+                {/* Mobile-only nested detail (Accordion) */}
+                {isMobile && activeId === s.id && (
+                  <div className="p-mobile-detail">
+                    <p>{s.desc}</p>
+                    <ul className="p-mob-features">
+                      {s.features.map(f => <li key={f}>{f}</li>)}
+                    </ul>
+                  </div>
+                )}
               </div>
             ))}
           </div>
 
-          {/* Right: Detail Panel */}
+          {/* Right: Detail Panel (Desktop only) */}
           <div className="provide-detail">
-            <div className="detail-content" key={active.id}>
-              <h3 className="detail-title">{active.title}</h3>
-              <p className="detail-desc">{active.desc}</p>
+            <div className="detail-content" key={activeService.id}>
+              <h3 className="detail-title">{activeService.title}</h3>
+              <p className="detail-desc">{activeService.desc}</p>
               <ul className="detail-features">
-                {active.features.map(f => <li key={f}>{f}</li>)}
+                {activeService.features.map(f => <li key={f}>{f}</li>)}
               </ul>
             </div>
           </div>

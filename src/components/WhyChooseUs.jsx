@@ -14,14 +14,17 @@ export default function WhyChooseUs() {
   return (
     <section className="section why-section" id="why-us">
       <div className="inner why-inner" ref={ref}>
-        <div className={`provide-header${inView ? ' visible' : ''}`}>
+        <div className={`provide-header reveal-up${inView ? ' reveal-visible' : ''}`}>
           <span className="section-eyebrow">02 — Why Us</span>
           <h2 className="section-title">Why Choose Us</h2>
         </div>
 
         <div className={`why-grid${inView ? ' visible' : ''}`}>
-          {WHY_CARDS.map(card => (
-            <div className="why-card" key={card.num}>
+          {WHY_CARDS.map((card, i) => (
+            <div 
+              className={`why-card reveal-up stagger-${i + 1}${inView ? ' reveal-visible' : ''}`} 
+              key={card.num}
+            >
               <div className="why-num">{card.num}</div>
               <h3 className="why-card-title">{card.title}</h3>
               <p className="why-card-desc">{card.desc}</p>
