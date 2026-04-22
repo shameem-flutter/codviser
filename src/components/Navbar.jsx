@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
+import CodviserLogo from './CodviserLogo';
 
 const NAV_LINKS = [
   { label: 'Services', href: '#services' },
-  { label: 'Why Us',   href: '#why-us'   },
-  { label: 'About',    href: '#about'    },
-  { label: 'Contact',  href: '#contact'  },
+  { label: 'Why Us', href: '#why-us' },
+  { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 export default function Navbar() {
-  const [scrolled,  setScrolled]  = useState(false)
-  const [active,    setActive]    = useState('')
-  const [menuOpen,  setMenuOpen]  = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState('')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   /* ── Scroll-aware shrink ── */
   useEffect(() => {
@@ -47,52 +48,51 @@ export default function Navbar() {
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
         {/* Logo */}
         <a href="#hero" className="nav-logo">
-          <span className="nav-logo-diamond" />
-          <span className="nav-logo-text">Codviser</span>
+          <CodviserLogo width={120} color="#000000" />
         </a>
 
-        {/* Right cluster */}
-        <div className="nav-right">
-          <ul className="nav-links">
-            {NAV_LINKS.map(({ label, href }) => {
-              const id = href.replace('#', '')
-              return (
-                <li key={label}>
-                  <a
-                    href={href}
-                    className={active === id ? 'active' : ''}
-                  >
-                    {label}
-                  </a>
-                </li>
-              )
-            })}
-          </ul>
-          <div className="nav-divider" />
+        {/* Links (Centered) */}
+        <ul className="nav-links">
+          {NAV_LINKS.map(({ label, href }) => {
+            const id = href.replace('#', '')
+            return (
+              <li key={label}>
+                <a
+                  href={href}
+                  className={active === id ? 'active' : ''}
+                >
+                  {label}
+                </a>
+              </li>
+            )
+          })}
+        </ul>
+
+        {/* Right side */}
+        <div className="nav-right-actions">
           <button className="nav-cta" onClick={() => document.getElementById('contact')?.scrollIntoView()}>
             Start Project
-            <span className="nav-cta-arrow">→</span>
+          </button>
+
+          {/* Mobile hamburger */}
+          <button
+            className="nav-hamburger"
+            aria-label="Toggle menu"
+            onClick={() => setMenuOpen(v => !v)}
+          >
+            <span style={{ transform: menuOpen ? 'rotate(45deg) translateY(6.5px)' : 'none' }} />
+            <span style={{ opacity: menuOpen ? 0 : 1 }} />
+            <span style={{ transform: menuOpen ? 'rotate(-45deg) translateY(-6.5px)' : 'none' }} />
           </button>
         </div>
-
-        {/* Mobile hamburger */}
-        <button
-          className="nav-hamburger"
-          aria-label="Toggle menu"
-          onClick={() => setMenuOpen(v => !v)}
-        >
-          <span style={{ transform: menuOpen ? 'rotate(45deg) translateY(6.5px)' : 'none' }} />
-          <span style={{ opacity: menuOpen ? 0 : 1 }} />
-          <span style={{ transform: menuOpen ? 'rotate(-45deg) translateY(-6.5px)' : 'none' }} />
-        </button>
       </nav>
 
       {/* Mobile overlay */}
       <div className={`mobile-overlay${menuOpen ? ' open' : ''}`}>
         {NAV_LINKS.map(({ label, href }, i) => (
-          <a 
-            key={label} 
-            href={href} 
+          <a
+            key={label}
+            href={href}
             onClick={close}
             className={`reveal-up stagger-${i + 1}${menuOpen ? ' reveal-visible' : ''}`}
           >

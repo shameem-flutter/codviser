@@ -1,13 +1,10 @@
 import React from 'react';
 
-const BackgroundMesh = () => {
+export default function BackgroundMesh() {
   return (
-    <div className="mesh-container" aria-hidden="true">
-      <div className="mesh-circle mesh-c1"></div>
-      <div className="mesh-circle mesh-c2"></div>
-      <div className="mesh-circle mesh-c3"></div>
-    </div>
+    <>
+      <div className="mesh-container" />
+      <div className="noise" aria-hidden="true" />
+    </>
   );
-};
-
-export default BackgroundMesh;
+}

@@ -35,11 +35,9 @@ export default function App() {
 
   return (
     <>
-      <div className="scroll-progress" ref={progressRef} />
       <BackgroundMesh />
-      <div className="noise" aria-hidden="true" />
       
-      {!isMobile && <Cursor />}
+      {/* {!isMobile && <Cursor />} */}
       <Navbar />
 
       <div className="scroll-wrapper" ref={scrollWrapperRef}>

@@ -9,32 +9,32 @@ export default function CTA() {
   return (
     <section className="section cta-section" id="contact">
       <div className="inner">
-        <div className="cta-inner">
-          <div className="cta-glow" />
-          <span className={`cta-tag${tagInView ? ' visible' : ''}`} ref={tagRef}>
-            — Ready when you are
+        <div className="cta-content">
+          <span className={`section-eyebrow reveal-up${tagInView ? ' reveal-visible' : ''}`} ref={tagRef}>
+            Ready when you are
           </span>
-          <h2 className={`cta-heading${headInView ? ' visible' : ''}`} ref={headRef}>
-            Let's Build <span className="accent">Something.</span>
+          <h2 className={`section-title reveal-up stagger-1${headInView ? ' reveal-visible' : ''}`} ref={headRef}>
+            Let's build something<br />extraordinary.
           </h2>
-          <div className={`cta-actions${actionsInView ? ' visible' : ''}`} ref={actionsRef}>
-            <a href="mailto:hello@codviser.com" className="cta-email">
-              hello@codviser.com
+          <div className={`cta-actions reveal-up stagger-2${actionsInView ? ' reveal-visible' : ''}`} ref={actionsRef}>
+            <a href="mailto:hello@codviser.com" className="btn-primary">
+              Contact us
             </a>
-            <button className="cta-btn">
-              <span>Start a Project</span>
-              <i>→</i>
+            <button className="btn-ghost" onClick={() => document.getElementById('hero')?.scrollIntoView()}>
+              Back to top <span className="link-arrow">↑</span>
             </button>
           </div>
         </div>
       </div>
       <footer className="footer">
-        <p className="footer-copy">© 2026 Codviser. All rights reserved.</p>
-        <ul className="footer-links">
-          {['Instagram', 'LinkedIn', 'Twitter', 'Behance'].map(s => (
-            <li key={s}><a href="#" rel="noreferrer">{s}</a></li>
-          ))}
-        </ul>
+        <div className="inner footer-inner">
+          <p className="footer-copy">© 2026 Codviser. All rights reserved.</p>
+          <ul className="footer-links">
+            {['Instagram', 'LinkedIn', 'Twitter'].map(s => (
+              <li key={s}><a href="#" rel="noreferrer">{s}</a></li>
+            ))}
+          </ul>
+        </div>
       </footer>
     </section>
   )

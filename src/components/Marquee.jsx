@@ -1,10 +1,9 @@
 import React from 'react';
 
 const MARQUEE_ITEMS = [
-  'Poster Making', 'Branding', 'Ads Video Making',
-  'Poster Making', 'Branding', 'Ads Video Making',
-  'Poster Making', 'Branding', 'Ads Video Making',
-  'Poster Making', 'Branding', 'Ads Video Making',
+  'Website Development', 'Mobile Apps', 'Brand Identity', 'Digital Marketing', 'UI/UX Design', 'SaaS Solutions',
+  'Website Development', 'Mobile Apps', 'Brand Identity', 'Digital Marketing', 'UI/UX Design', 'SaaS Solutions',
+  'Website Development', 'Mobile Apps', 'Brand Identity', 'Digital Marketing', 'UI/UX Design', 'SaaS Solutions',
 ]
 
 export default function Marquee() {

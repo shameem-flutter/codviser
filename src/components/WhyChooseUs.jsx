@@ -22,13 +22,11 @@ export default function WhyChooseUs() {
         <div className={`why-grid${inView ? ' visible' : ''}`}>
           {WHY_CARDS.map((card, i) => (
             <div 
-              className={`why-card reveal-up stagger-${i + 1}${inView ? ' reveal-visible' : ''}`} 
+              className={`glass-card reveal-up stagger-${i + 1}${inView ? ' reveal-visible' : ''}`} 
               key={card.num}
             >
-              <div className="why-num">{card.num}</div>
-              <h3 className="why-card-title">{card.title}</h3>
-              <p className="why-card-desc">{card.desc}</p>
-              <div className="why-bg-num">{card.num}</div>
+              <h3 className="card-title">{card.title}</h3>
+              <p className="card-desc">{card.desc}</p>
             </div>
           ))}
         </div>
