@@ -203,6 +203,43 @@ p {
   transform: scale(1.02);
 }
 
+/* Mobile Overlay */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  z-index: 999;
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+}
+
+@media (max-width: 768px) {
+  .mobile-overlay {
+    display: flex; /* Only show on mobile */
+  }
+}
+
+.mobile-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-overlay a {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--font-display);
+}
+
 /* Buttons */
 .btn-primary {
   display: inline-flex;
@@ -252,44 +289,6 @@ p {
   overflow: hidden;
 }
 
-/* Service Card Specifics */
-.provide-section .glass-card {
-  width: 240px;
-  height: 360px;
-  border-radius: 16px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 32px 24px;
-  background: var(--white);
-  border: 1px solid var(--glass-border);
-}
-
-.sliding-cards {
-  display: flex;
-  gap: 24px;
-  overflow-x: auto;
-  padding: 20px 40px 60px 40px;
-  margin: 0 -40px;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  scroll-snap-type: x mandatory;
-  -ms-overflow-style: none;
-}
-
-.sliding-cards::-webkit-scrollbar {
-  display: none;
-}
-
-.sliding-cards .glass-card {
-  scroll-snap-align: center;
-}
-
-.glass-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
-}
 
 /* Hero Section Specifics */
 .hero-section {
@@ -410,25 +409,6 @@ p {
 .glass-card .card-desc {
   font-size: 16px;
   margin-bottom: 24px;
-}
-
-/* Why Us Grid */
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-
-@media (max-width: 1024px) {
-  .why-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .why-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* About Section */

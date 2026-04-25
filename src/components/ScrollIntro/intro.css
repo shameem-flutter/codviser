@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+/* ══════════════════════════════════════════════════════
+   ScrollIntro — "we can scroll" section
+   All rules scoped to .intro-container.
+   ══════════════════════════════════════════════════════ */
+
+.intro-container {
+  --lightness: 45%;
+  --base-chroma: 0.26;
+  --step: calc(360 / (var(--count, 19) - 1));
+
+  /* Participate in scroll-snap so the section locks in view */
+  scroll-snap-align: start;
+
+  width: 100%;
+  background: #fff;
+  font-family: 'Geist', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+  color: rgba(19, 18, 18, 0.9);
+  /* overflow-x: hidden removed to fix position: sticky */
+}
+
+/* ── Opening screen ── */
+.intro-header {
+  min-height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2rem;
+  /* This first screen is the snap target */
+  scroll-snap-align: start;
+}
+
+.intro-title {
+  font-size: clamp(3.5rem, 12vw, 9rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  margin: 0;
+  color: #000000;
+}
+
+/* ── Scrollable word body ── */
+.intro-scroll-body {
+  width: 100%;
+}
+
+.intro-section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  /* padding-top is minimal to move directly into the first word. 
+     padding-bottom is set so the section ends right when 'do it.' aligns with 'we can'. */
+  padding: 0 2rem 50vh;
+}
+
+/* Sticky "we can " prefix — locked in the vertical center */
+.intro-sticky-label {
+  position: sticky;
+  top: 50vh;
+  transform: translateY(-50%);
+  align-self: flex-start;
+  flex-shrink: 0;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 1.5rem 0 0;
+  white-space: nowrap;
+  color: #000;
+}
+
+/* ── Word list ── */
+.intro-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 0 1 auto;
+}
+
+.intro-list li {
+  /* oklch hue cycling across the rainbow per item */
+  color: oklch(var(--lightness) var(--base-chroma) calc(var(--step) * var(--i)));
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.45;
+  /* GSAP drives opacity — start dimmed */
+  opacity: 0.2;
+  will-change: opacity, filter;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .intro-header {
+    padding: 0 2rem;
+  }
+
+  .intro-section {
+    flex-direction: column;
+    padding: 0 2rem 20vh;
+  }
+
+  .intro-sticky-label {
+    position: relative;
+    top: auto;
+    margin: 0 0 1rem 0;
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .intro-list li {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+}

@@ -1,0 +1,195 @@
+.why-section {
+  padding: 160px 0;
+  background: radial-gradient(circle at center, #ffffff 0%, #f8f8fa 100%);
+  position: relative;
+  z-index: 2;
+  overflow: hidden; /* Prevent blob leakage */
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .why-section {
+    padding: 80px 0; /* Slightly less vertical padding on mobile */
+  }
+  
+  .why-inner {
+    padding-top: 120px; /* Further increased from 100px to ensure clearance on 320px screens */
+  }
+}
+
+.why-blobs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.why-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+  animation: blobFloat 20s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--accent);
+  top: -10%;
+  left: -10%;
+  animation-delay: 0s;
+}
+
+.blob-2 {
+  width: 400px;
+  height: 400px;
+  background: #E0E0E0;
+  bottom: -10%;
+  right: -10%;
+  animation-delay: -10s;
+}
+
+@keyframes blobFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(50px, 30px) scale(1.1); }
+}
+
+.why-section .section-title {
+  margin-bottom: 120px; /* Increased from 100px */
+  letter-spacing: -0.05em;
+  font-weight: 800;
+  font-size: clamp(48px, 6vw, 72px);
+}
+
+/* Why Us Timeline */
+.timeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--glass-border);
+  transform: translateX(-50%);
+}
+
+.timeline-trail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  z-index: 1;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px; /* Increased from 10px */
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent);
+  z-index: 20; /* Ensure it stays above cards on mobile */
+}
+
+.timeline-dot.pulsing {
+  animation: dotPulse 1.5s infinite;
+}
+
+@keyframes dotPulse {
+  0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 15px var(--accent); }
+  50% { transform: translate(-50%, -50%) scale(1.5); box-shadow: 0 0 30px var(--accent); }
+  100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 15px var(--accent); }
+}
+
+.timeline-item {
+  display: flex;
+  justify-content: flex-end;
+  padding: 60px 0; /* Reduced from 120px to fix sparsity */
+  width: 50%;
+  position: relative;
+  opacity: 0.3;
+}
+
+.timeline-item.left {
+  justify-content: flex-end; /* align to the center line */
+  padding-right: 48px;
+}
+
+.timeline-item.right {
+  margin-left: 50%;
+  justify-content: flex-start;
+  padding-left: 48px;
+}
+
+.timeline-card {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.02);
+  padding: 40px;
+  border-radius: 24px;
+}
+
+.timeline-card .card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 16px;
+}
+
+.timeline-card .card-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .timeline-container {
+    padding: 20px 0;
+  }
+
+  .timeline-line {
+    left: 40px; /* Shift to left */
+    transform: none;
+  }
+  
+  .timeline-dot {
+    left: 40px;
+    transform: translate(-50%, -50%);
+  }
+
+  .timeline-item.left,
+  .timeline-item.right {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start; /* Align cards to the left next to the line */
+    padding: 40px 20px;
+    padding-left: 80px; /* Space for the line */
+    text-align: left; /* Better readability on mobile */
+  }
+
+  .timeline-card {
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.6); 
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+  }
+}

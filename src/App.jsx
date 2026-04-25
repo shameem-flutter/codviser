@@ -3,10 +3,11 @@ import './index.css';
 import { useIsMobile } from './hooks/useIsMobile';
 import Cursor from './components/Cursor';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
+import Hero from './components/Hero/index';
 import Marquee from './components/Marquee';
-import WhatWeProvide from './components/WhatWeProvide';
-import WhyChooseUs from './components/WhyChooseUs';
+import Services from './components/Services/index';
+import WhyChooseUs from './components/WhyChooseUs/index';
+import ScrollIntro from './components/ScrollIntro/index';
 import About from './components/About';
 import CTA from './components/CTA';
 import BackgroundMesh from './components/BackgroundMesh';
@@ -46,7 +47,8 @@ export default function App() {
           <Marquee />
         </div>
 
-        <WhatWeProvide />
+        <Services />
+        <ScrollIntro />
         <WhyChooseUs />
         <About />
         <CTA />
