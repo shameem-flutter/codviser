@@ -1,6 +1,6 @@
 .why-section {
-  padding: 160px 0;
-  background: radial-gradient(circle at center, #ffffff 0%, #f8f8fa 100%);
+  padding: 80px 0 160px 0;
+  background: #ffffff;
   position: relative;
   z-index: 2;
   overflow: hidden; /* Prevent blob leakage */
@@ -18,48 +18,26 @@
 }
 
 .why-blobs {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.why-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.15;
-  animation: blobFloat 20s infinite alternate ease-in-out;
-}
-
-.blob-1 {
-  width: 500px;
-  height: 500px;
-  background: var(--accent);
-  top: -10%;
-  left: -10%;
-  animation-delay: 0s;
-}
-
-.blob-2 {
-  width: 400px;
-  height: 400px;
-  background: #E0E0E0;
-  bottom: -10%;
-  right: -10%;
-  animation-delay: -10s;
-}
-
-@keyframes blobFloat {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(50px, 30px) scale(1.1); }
+  display: none;
 }
 
 .why-section .section-title {
-  margin-bottom: 120px; /* Increased from 100px */
+  margin-bottom: 16px;
   letter-spacing: -0.05em;
   font-weight: 800;
   font-size: clamp(48px, 6vw, 72px);
+}
+
+.why-section .section-subtitle {
+  max-width: 700px;
+  margin: 0 auto 48px auto;
+  font-size: clamp(17px, 2vw, 21px);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.why-section .provide-header {
+  margin-bottom: 0px !important;
 }
 
 /* Why Us Timeline */
@@ -192,4 +170,13 @@
     box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.05);
     padding: 30px;
   }
+}
+
+.why-footer-icons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  position: relative;
+  z-index: 5;
 }

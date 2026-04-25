@@ -1,0 +1,85 @@
+.social-icons-row-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0 20px;
+  margin-top: 40px;
+}
+
+.social-icons-row {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.social-icon-wrapper {
+  perspective: 1000px;
+}
+
+.social-icon-squircle {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* iOS-style border radius (squircle approximation) */
+  border-radius: 18px; 
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle inner glow for depth without being "3D" */
+.social-icon-squircle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 50%);
+  pointer-events: none;
+}
+
+.social-icon-svg {
+  width: 36px;
+  height: 36px;
+  transition: transform 0.4s ease;
+}
+
+/* Hover Effects */
+.social-icon-wrapper:hover .social-icon-squircle {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon-wrapper:hover .social-icon-svg {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .social-icons-row-wrapper {
+    padding: 40px 0 0;
+    margin-top: 20px;
+  }
+  
+  .social-icons-row {
+    gap: 20px;
+  }
+  
+  .social-icon-squircle {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+  }
+  
+  .social-icon-svg {
+    width: 30px;
+    height: 30px;
+  }
+}

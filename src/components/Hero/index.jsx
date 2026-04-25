@@ -85,8 +85,7 @@ export default function Hero() {
 
           {/* Subheadline */}
           <p className={`hero-subheadline ${reveal('stagger-2')}`}>
-            Codviser is a product engineering agency that turns complex problems into
-            clean, scalable digital solutions.
+            Codviser is a software company helping startups and businesses establish a powerful digital presence — from web and app development to strategic marketing and branding.
           </p>
 
           {/* CTA Buttons */}

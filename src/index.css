@@ -411,36 +411,6 @@ p {
   margin-bottom: 24px;
 }
 
-/* About Section */
-.about-header {
-  max-width: 800px;
-  margin-bottom: 80px;
-}
-
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  border-top: 1px solid var(--glass-border);
-  padding-top: 40px;
-}
-
-.about-stat-item .stat-num {
-  font-size: 48px;
-  font-weight: 700;
-  font-family: var(--font-display);
-  margin-bottom: 8px;
-  letter-spacing: -0.02em;
-}
-
-.about-stat-item .stat-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
 /* CTA & Footer */
 .cta-content {
   text-align: center;

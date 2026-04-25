@@ -3,6 +3,7 @@ import { useInView } from '../../hooks/useInView';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { WHY_DATA } from './why.config';
+import SocialIconsRow from '../SocialIconsRow';
 import './why.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -136,6 +137,9 @@ export default function WhyChooseUs() {
         <div className={`provide-header reveal-up${inView ? ' reveal-visible' : ''}`}>
           <span className="section-eyebrow">{WHY_DATA.eyebrow}</span>
           <h2 className="section-title">{WHY_DATA.title}</h2>
+          {WHY_DATA.subtitle && (
+            <p className="section-subtitle">{WHY_DATA.subtitle}</p>
+          )}
         </div>
 
         <div className="timeline-container" ref={timelineRef}>
@@ -159,6 +163,10 @@ export default function WhyChooseUs() {
               </div>
             );
           })}
+        </div>
+
+        <div className="why-footer-icons">
+          <SocialIconsRow />
         </div>
       </div>
     </section>

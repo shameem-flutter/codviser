@@ -8,7 +8,7 @@ import Marquee from './components/Marquee';
 import Services from './components/Services/index';
 import WhyChooseUs from './components/WhyChooseUs/index';
 import ScrollIntro from './components/ScrollIntro/index';
-import About from './components/About';
+import About from './components/About/index';
 import CTA from './components/CTA';
 import BackgroundMesh from './components/BackgroundMesh';
 

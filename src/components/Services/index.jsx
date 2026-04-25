@@ -60,7 +60,7 @@ const SERVICES_DATA = [
 
 export default function Services() {
   const [headerRef, headerInView] = useInView(0.1)
-  
+
   // Inject configuration as CSS variables
   const sectionStyles = {
     '--services-bg': config.appearance.background,
@@ -77,7 +77,7 @@ export default function Services() {
     '--services-max-width': config.layout.maxWidth,
     '--services-padding-top': config.layout.paddingTop,
     '--services-padding-bottom': config.layout.paddingBottom,
-    
+
     // New Theme Color Variables
     '--services-text-heading': config.appearance.colors.textHeading,
     '--services-text-subtitle': config.appearance.colors.textSubtitle,
@@ -108,15 +108,15 @@ export default function Services() {
   };
 
   return (
-    <section 
-      className="section provide-section" 
+    <section
+      className="section provide-section"
       id="services"
       style={sectionStyles}
     >
       <div className="provide-spotlight" />
 
       <div className="inner">
-        <div 
+        <div
           ref={headerRef}
           className={`provide-header ${headerInView ? 'reveal-visible' : ''}`}
         >
@@ -125,13 +125,13 @@ export default function Services() {
             <span className="provide-eyebrow">Our Services</span>
             <div className="provide-eyebrow-line" />
           </div>
-          
+
           <h2 className="provide-title">
             What We <span>Provide</span>
           </h2>
-          
+
           <p className="provide-subtitle">
-            Delivering high-impact digital solutions through specialized engineering and creative strategy.
+            End-to-end digital solutions tailored for your business.
           </p>
         </div>
 
@@ -153,14 +153,14 @@ export default function Services() {
 function ServiceCard({ service, index }) {
   const [cardRef, inView] = useInView(config.animations.revealThreshold)
   const delay = index * config.animations.cardStaggerDelay
-  
+
   return (
     <div
       ref={cardRef}
       className={`service-card ${inView ? 'reveal-visible' : ''}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div 
+      <div
         className="card-num-badge"
         style={{ transitionDelay: `${delay + config.animations.numberBadgeDelay}ms` }}
       >

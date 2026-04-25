@@ -52,7 +52,7 @@
   justify-content: center;
   /* padding-top is minimal to move directly into the first word. 
      padding-bottom is set so the section ends right when 'do it.' aligns with 'we can'. */
-  padding: 0 2rem 50vh;
+  padding: 0 2rem 10vh;
 }
 
 /* Sticky "we can " prefix — locked in the vertical center */

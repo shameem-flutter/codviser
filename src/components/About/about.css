@@ -1,0 +1,146 @@
+.about-section {
+  background: var(--about-bg);
+  padding: 160px 0;
+  border-top: 1px solid var(--about-glass-border);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  align-items: start;
+}
+
+.about-narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.about-header {
+  margin-bottom: 32px;
+}
+
+.about-headline {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin-top: 16px;
+  color: var(--black);
+}
+
+.story-block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.story-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--about-accent);
+  margin-bottom: 8px;
+}
+
+.story-text {
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--about-text-secondary);
+}
+
+.about-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  position: sticky;
+  top: 120px;
+}
+
+.sidebar-block {
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--about-glass-border);
+  transition: border-color 0.4s var(--ease);
+}
+
+.sidebar-block:hover {
+  border-color: var(--about-accent);
+}
+
+.sidebar-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--about-text-secondary);
+  margin-bottom: 24px;
+}
+
+.sidebar-content {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--about-text);
+}
+
+.principles-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.principle-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  margin-left: -16px;
+  border-radius: 12px;
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.principle-card:hover {
+  background: var(--about-principle-hover);
+  transform: translateX(8px);
+}
+
+.principle-title {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--about-text);
+}
+
+.principle-desc {
+  font-size: 16px;
+  color: var(--about-text-secondary);
+  line-height: 1.5;
+}
+
+.about-cta-container {
+  margin-top: 40px;
+}
+
+@media (max-width: 1024px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+  
+  .about-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 100px 0;
+  }
+  
+  .about-narrative {
+    gap: 48px;
+  }
+  
+  .about-headline {
+    font-size: 36px;
+  }
+}
