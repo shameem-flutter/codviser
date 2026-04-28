@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@vfx-js/core": "^0.13.0",
     "gsap": "^3.15.0",
     "react": "^19.2.4",

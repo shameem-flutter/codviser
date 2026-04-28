@@ -1,6 +1,7 @@
 .about-section {
   background: var(--about-bg);
-  padding: 160px 0;
+  padding-top: 160px;
+  padding-bottom: 60px;
   border-top: 1px solid var(--about-glass-border);
 }
 
@@ -133,14 +134,36 @@
 
 @media (max-width: 768px) {
   .about-section {
-    padding: 100px 0;
+    padding: 64px 0 48px;
   }
   
-  .about-narrative {
+  .about-grid {
+    grid-template-columns: 1fr;
     gap: 48px;
+  }
+
+  .about-sidebar {
+    position: static;
+    gap: 40px;
+  }
+
+  .about-narrative {
+    gap: 36px;
   }
   
   .about-headline {
-    font-size: 36px;
+    font-size: clamp(28px, 8vw, 40px);
+  }
+
+  .story-text {
+    font-size: 16px;
+  }
+
+  .sidebar-content {
+    font-size: 15px;
+  }
+
+  .about-cta-container {
+    margin-top: 24px;
   }
 }

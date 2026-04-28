@@ -4,23 +4,21 @@ import "./intro.css";
 
 const words = [
   "design.",
-  "prototype.",
-  "solve.",
+  "engineer.",
   "build.",
-  "develop.",
-  "debug.",
-  "learn.",
-  "ship.",
-  "prompt.",
-  "collaborate.",
-  "create.",
-  "inspire.",
-  "innovate.",
-  "test.",
+  "iterate.",
   "optimize.",
-  "visualize.",
-  "transform.",
   "scale.",
+  "deploy.",
+  "prototype.",
+  "transform.",
+  "innovate.",
+  "automate.",
+  "collaborate.",
+  "deliver.",
+  "grow.",
+  "lead.",
+  "dominate.",
   "do it.",
 ];
 
@@ -41,12 +39,6 @@ export default function ScrollIntro() {
   return (
     // scroll-snap-align: start is set in CSS so this section locks in view
     <div className="intro-container" ref={containerRef}>
-      {/* Opening: "we can scroll." full-screen */}
-      <div className="intro-header">
-        <h2 className="intro-title">
-          we can <br /> scroll.
-        </h2>
-      </div>
 
       {/* Word journey — sticky label + scrollable list */}
       <div className="intro-scroll-body">
@@ -59,7 +51,7 @@ export default function ScrollIntro() {
             className="intro-list"
             ref={listRef}
             style={{ "--count": words.length }}
-            aria-label="we can design, build, ship and more."
+            aria-label="we can design, engineer, build and more."
           >
             {words.map((word, i) => (
               <li key={i} style={{ "--i": i }}>

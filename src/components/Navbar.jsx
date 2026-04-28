@@ -3,7 +3,6 @@ import CodviserLogo from './CodviserLogo';
 
 const NAV_LINKS = [
   { label: 'Services', href: '#services' },
-  { label: 'Why Us', href: '#why-us' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ]
@@ -24,7 +23,7 @@ export default function Navbar() {
 
   /* ── Active link via IntersectionObserver ── */
   useEffect(() => {
-    const sectionIds = ['hero', 'services', 'why-us', 'about', 'contact']
+    const sectionIds = ['hero', 'services', 'about', 'contact']
     const observers = []
 
     sectionIds.forEach(id => {

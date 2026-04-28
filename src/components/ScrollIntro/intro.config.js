@@ -11,11 +11,14 @@ export const initIntroAnimation = (list, container) => {
   const items = list.querySelectorAll("li");
   if (!items.length) return;
 
+  const isMobile = window.innerWidth <= 768;
+  const activeScroller = isMobile ? window : SCROLLER;
+
   // Initial state
   gsap.set(items, {
-    opacity: (i) => (i === 0 ? 1 : 0.25),
+    opacity: 0.2,
     y: 20,
-    scale: 1,
+    scale: 0.95,
     filter: "brightness(1)",
   });
 
@@ -24,56 +27,41 @@ export const initIntroAnimation = (list, container) => {
   items.forEach((item, index) => {
     const isLast = index === items.length - 1;
 
-    const st = ScrollTrigger.create({
+    // Fade In & Scale Up
+    const stIn = ScrollTrigger.create({
       trigger: item,
-      start: "top 55%",
-      end: isLast ? "bottom -100%" : "bottom 45%", // Last item stays active as it moves off screen
-      scroller: SCROLLER,
-
-      onEnter: () =>
-        gsap.to(item, {
-          opacity: 1,
-          y: 0,
-          scale: 1.05,
-          filter: "brightness(1.2)",
-          duration: 0.4,
-          ease: "power2.out",
-        }),
-
-      onLeave: () => {
-        if (isLast) return; // Don't dim the last item; it should move with 'we can'
-        gsap.to(item, {
-          opacity: 0.25,
-          y: 20,
-          scale: 1,
-          filter: "brightness(1)",
-          duration: 0.3,
-          ease: "power2.in",
-        });
-      },
-
-      onEnterBack: () =>
-        gsap.to(item, {
-          opacity: 1,
-          y: 0,
-          scale: 1.05,
-          filter: "brightness(1.2)",
-          duration: 0.4,
-          ease: "power2.out",
-        }),
-
-      onLeaveBack: () =>
-        gsap.to(item, {
-          opacity: 0.25,
-          y: 20,
-          scale: 1,
-          filter: "brightness(1)",
-          duration: 0.3,
-          ease: "power2.in",
-        }),
+      start: "top 65%",
+      end: "top 45%",
+      scroller: activeScroller,
+      animation: gsap.to(item, {
+        opacity: 1,
+        y: 0,
+        scale: 1.05,
+        filter: "brightness(1.2)",
+        ease: "power1.out",
+      }),
+      scrub: 1, // Smooth scrubbing
     });
+    triggers.push(stIn);
 
-    triggers.push(st);
+    // Fade Out & Scale Down (unless it's the last item)
+    if (!isLast) {
+      const stOut = ScrollTrigger.create({
+        trigger: item,
+        start: "bottom 55%",
+        end: "bottom 35%",
+        scroller: activeScroller,
+        animation: gsap.to(item, {
+          opacity: 0.2,
+          y: -20,
+          scale: 0.95,
+          filter: "brightness(1)",
+          ease: "power1.in",
+        }),
+        scrub: 1,
+      });
+      triggers.push(stOut);
+    }
   });
 
   return () => {

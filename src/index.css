@@ -10,6 +10,7 @@
   --nav-h: 52px;
   --section-pad: 120px;
   --content-max: 1200px;
+  --section-pad-mobile: 64px;
 
   --glass-bg: rgba(245, 245, 247, 0.72);
   --glass-border: rgba(0, 0, 0, 0.08);
@@ -37,6 +38,7 @@ html,
 body {
   height: 100%;
   overflow: hidden;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-main);
@@ -81,6 +83,32 @@ body {
   padding: 0 40px;
   position: relative;
   z-index: 2;
+}
+
+/* Hamburger — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
 }
 
 /* Typography */
@@ -150,6 +178,12 @@ p {
   background: transparent;
   transition: background 0.5s var(--ease), backdrop-filter 0.5s var(--ease), border 0.5s var(--ease);
   border-bottom: 1px solid transparent;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .navbar.scrolled {
@@ -352,11 +386,22 @@ p {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .inner {
-    padding: 0 24px;
+    padding: 0 20px;
   }
 
   .section {
-    padding: 80px 0;
+    padding: var(--section-pad-mobile) 0;
+    min-height: auto;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 7vw, 40px);
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: 16px;
+    margin-bottom: 32px;
   }
 
   .nav-links,
@@ -364,8 +409,13 @@ p {
     display: none;
   }
 
+  .nav-hamburger {
+    display: flex;
+  }
+
   .navbar {
-    height: 60px;
+    height: 56px;
+    padding: 0 20px;
   }
 
   html,
@@ -378,6 +428,70 @@ p {
     height: auto;
     overflow: visible;
     scroll-snap-type: none;
+  }
+
+  /* Touch-friendly buttons */
+  .btn-primary,
+  .btn-ghost {
+    min-height: 44px;
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+
+  /* CTA section */
+  .cta-section {
+    padding-top: var(--section-pad-mobile);
+  }
+
+  .cta-content {
+    margin-bottom: 40px;
+  }
+
+  /* Glass cards full-width on mobile */
+  .glass-card {
+    padding: 24px 20px;
+  }
+
+  /* Ensure sections clear the fixed navbar on mobile */
+  .section,
+  .provide-section,
+  .why-section,
+  .about-section,
+  .intro-container {
+    scroll-margin-top: 56px;
+  }
+
+  /* Footer wrap */
+  .footer-inner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .footer {
+    padding: 28px 0;
+  }
+
+  /* About stats fallback */
+  .about-stats {
+    grid-template-columns: 1fr;
+  }
+
+  /* Mobile overlay links */
+  .mobile-overlay a {
+    font-size: 24px;
+  }
+
+  /* Marquee on mobile */
+  .marquee-item {
+    font-size: 11px;
+    padding: 0 24px;
   }
 }
 
@@ -412,17 +526,22 @@ p {
 }
 
 /* CTA & Footer */
+.cta-section {
+  padding-top: 120px;
+  padding-bottom: 0; /* Remove bottom padding as footer is inside */
+  min-height: auto !important;
+}
+
 .cta-content {
   text-align: center;
+  margin-bottom: 80px;
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   padding: 40px 0;
   border-top: 1px solid var(--glass-border);
+  background: var(--white);
 }
 
 .footer-inner {
@@ -459,17 +578,7 @@ p {
   gap: 24px;
 }
 
-@media (max-width: 768px) {
-  .about-stats {
-    grid-template-columns: 1fr;
-  }
 
-  .footer-inner {
-    flex-direction: column;
-    gap: 24px;
-    text-align: center;
-  }
-}
 
 /* Marquee */
 .marquee-section {
