@@ -48,12 +48,14 @@
   margin: 0 1.5rem 0 0;
   white-space: nowrap;
   color: #000;
+  z-index: 10;
 }
 
 /* ── Word list ── */
 .intro-list {
   list-style: none;
-  padding: 0;
+  padding: 50vh 0;
+  /* Ensures words scroll past the center-locked label */
   margin: 0;
   flex: 0 1 auto;
 }
@@ -71,56 +73,69 @@
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
-  .intro-container {
-    overflow-x: hidden !important;
-    max-width: 100vw;
-    position: relative;
+
+  /* No overflow clipping — sticky/transform-based centering needs this */
+  .intro-container,
+  .intro-scroll-body {
+    overflow: visible !important;
     background: #fff;
   }
-
 
   .intro-section {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
+    align-items: flex-start !important;
     justify-content: center !important;
-    align-items: flex-start !important; /* Keep flex-start so sticky can slide from top */
-    padding: 0 10px !important;
-    min-height: 100vh;
-    position: relative;
-    gap: 0.5rem !important;
+    /* no min-height — list padding drives the scroll height */
+    height: auto !important;
+    padding: 0 16px !important;
+    gap: 8px !important;
   }
 
+  /* ── "we can" label ──
+     JS computes translateY once per scroll tick (no DOM reads = no flicker).
+     CSS only provides base styles. */
   .intro-sticky-label {
-    position: sticky !important;
-    top: 50vh !important;
-    transform: translateY(-50%) !important;
-    margin: 0 !important;
-    font-size: clamp(1.5rem, 6vw, 3rem) !important; /* User requested clamp */
-    line-height: 1.2 !important;
+    position: relative !important;
+    top: 0 !important;
+    transform: none; /* JS overrides this */
     flex-shrink: 0 !important;
+    align-self: flex-start !important;
+    margin: 0 !important;
+    font-size: clamp(1.6rem, 7vw, 3rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
     white-space: nowrap !important;
-    text-align: right !important;
-    z-index: 10;
-    color: #000;
+    color: #000 !important;
+    /* GPU layer — prevents paint during transform updates */
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
+  /* ── Word list ──
+     50vh top + bottom padding means the first and last words
+     each pass through the exact vertical center of the screen. */
   .intro-list {
     display: block !important;
+    flex: 1 1 auto !important;
     margin: 0 !important;
-    padding: 50vh 0 !important; 
-    flex: 0 1 auto !important;
+    padding: 50vh 0 50vh !important;
     list-style: none !important;
-    max-width: 100%; /* Prevent overflow */
+    overflow: visible !important;
   }
 
   .intro-list li {
-    font-size: clamp(2rem, 10vw, 5rem) !important; /* User requested clamp */
-    line-height: 1.2 !important;
+    font-size: clamp(1.8rem, 9vw, 4.5rem) !important;
+    line-height: 1.25 !important;
     text-align: left !important;
     margin: 0 !important;
-    padding: 0.5rem 0 !important;
-    opacity: 0.2;
+    padding: 0.35rem 0 !important;
+    opacity: 0.15;
     will-change: opacity, transform;
+    /* Promote each word to its own layer for smooth GPU compositing */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 }

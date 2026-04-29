@@ -14,31 +14,44 @@ export default function Navbar() {
 
   /* ── Scroll-aware shrink ── */
   useEffect(() => {
-    const wrapper = document.querySelector('.scroll-wrapper')
-    if (!wrapper) return
-    const onScroll = () => setScrolled(wrapper.scrollTop > 40)
-    wrapper.addEventListener('scroll', onScroll, { passive: true })
-    return () => wrapper.removeEventListener('scroll', onScroll)
-  }, [])
+    const isMobile = window.innerWidth <= 768;
+    const wrapper = document.querySelector('.scroll-wrapper');
+    const scroller = isMobile ? window : wrapper;
+    
+    if (!scroller) return;
+
+    const onScroll = () => {
+      const scrollPos = isMobile ? window.scrollY : wrapper.scrollTop;
+      setScrolled(scrollPos > 40);
+    }
+
+    scroller.addEventListener('scroll', onScroll, { passive: true });
+    return () => scroller.removeEventListener('scroll', onScroll);
+  }, []);
 
   /* ── Active link via IntersectionObserver ── */
   useEffect(() => {
-    const sectionIds = ['hero', 'services', 'about', 'contact']
-    const observers = []
+    const isMobile = window.innerWidth <= 768;
+    const wrapper = document.querySelector('.scroll-wrapper');
+    const sectionIds = ['hero', 'services', 'about', 'contact'];
+    const observers = [];
 
     sectionIds.forEach(id => {
-      const el = document.getElementById(id)
-      if (!el) return
+      const el = document.getElementById(id);
+      if (!el) return;
       const obs = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActive(id) },
-        { root: document.querySelector('.scroll-wrapper'), threshold: 0.5 }
-      )
-      obs.observe(el)
-      observers.push(obs)
-    })
+        { 
+          root: isMobile ? null : wrapper, 
+          threshold: 0.3 
+        }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
 
-    return () => observers.forEach(o => o.disconnect())
-  }, [])
+    return () => observers.forEach(o => o.disconnect());
+  }, []);
 
   const close = () => setMenuOpen(false)
 

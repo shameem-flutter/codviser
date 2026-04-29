@@ -15,11 +15,15 @@ export default function WhyChooseUs() {
   const trailRef = useRef(null)
   const itemRefs = useRef([])
 
+  const socialIconsRef = useRef(null)
+
   useEffect(() => {
-    const scroller = ".scroll-wrapper";
+    // Determine scroller based on device (mobile uses window, desktop uses .scroll-wrapper)
+    const isMobileDevice = window.innerWidth <= 768;
+    const scroller = isMobileDevice ? window : ".scroll-wrapper";
     
     // Ensure the scroller is ready
-    const scrollContainer = document.querySelector(scroller);
+    const scrollContainer = isMobileDevice ? window : document.querySelector(scroller);
     if (!scrollContainer || !timelineRef.current || !dotRef.current || !trailRef.current) return;
 
     let mm = gsap.matchMedia();
@@ -32,6 +36,7 @@ export default function WhyChooseUs() {
         isDesktop: "(min-width: 769px)"
       }, (context) => {
         let { isMobile } = context.conditions;
+        const activeScroller = isMobile ? window : ".scroll-wrapper";
 
         // Recalculate positions inside matchMedia
         const firstItem = itemRefs.current[0];
@@ -54,7 +59,7 @@ export default function WhyChooseUs() {
             start: () => `top+=${startPos} center`,
             end: () => `top+=${endPos} center`,
             scrub: 0.8,
-            scroller: scroller,
+            scroller: activeScroller,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               if (trailRef.current) {
@@ -82,21 +87,30 @@ export default function WhyChooseUs() {
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: item,
-              // More aggressive triggers on mobile to ensure reveal
-              start: isMobile ? "top 85%" : "top 65%",
-              end: isMobile ? "top 45%" : "top 35%",
+              // Refined triggers for a smoother center-focused fade
+              start: isMobile ? "top 92%" : "top 75%",
+              end: isMobile ? "top 55%" : "top 35%",
               scrub: 0.5,
-              scroller: scroller,
-              onEnter: () => dotRef.current.classList.add('pulsing'),
-              onLeave: () => dotRef.current.classList.remove('pulsing'),
-              onEnterBack: () => dotRef.current.classList.add('pulsing'),
-              onLeaveBack: () => dotRef.current.classList.remove('pulsing'),
+              scroller: activeScroller,
+              onEnter: () => dotRef.current?.classList.add('pulsing'),
+              onLeave: () => dotRef.current?.classList.remove('pulsing'),
+              onEnterBack: () => dotRef.current?.classList.add('pulsing'),
+              onLeaveBack: () => dotRef.current?.classList.remove('pulsing'),
             }
           });
 
           tl.fromTo(item, 
-            { opacity: 0.3 }, 
-            { opacity: 1, ease: "power2.out" }
+            { 
+              opacity: 0, 
+              scale: isMobile ? 0.92 : 1,
+              filter: isMobile ? "blur(8px)" : "none" 
+            }, 
+            { 
+              opacity: 1, 
+              scale: 1, 
+              filter: isMobile ? "blur(0px)" : "none",
+              ease: "power2.out" 
+            }
           )
           .fromTo(card,
             { 
@@ -113,10 +127,37 @@ export default function WhyChooseUs() {
             0.1
           );
         });
+
+        // 3. Social Icons Stagger Animation
+        if (socialIconsRef.current) {
+          const icons = socialIconsRef.current.querySelectorAll('.social-icon-wrapper');
+          gsap.fromTo(icons, 
+            { 
+              opacity: 0, 
+              y: 30,
+              scale: 0.8,
+              rotateX: 45
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              rotateX: 0,
+              stagger: 0.1,
+              ease: "back.out(1.7)",
+              scrollTrigger: {
+                trigger: socialIconsRef.current,
+                start: "top 95%",
+                scroller: activeScroller,
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        }
       });
 
       ScrollTrigger.refresh();
-    }, 150); // Slightly longer delay for stability
+    }, 200); // Slightly longer delay for stability
 
     return () => {
       clearTimeout(timeoutId);
@@ -165,7 +206,7 @@ export default function WhyChooseUs() {
           })}
         </div>
 
-        <div className="why-footer-icons">
+        <div className="why-footer-icons" ref={socialIconsRef}>
           <SocialIconsRow />
         </div>
       </div>

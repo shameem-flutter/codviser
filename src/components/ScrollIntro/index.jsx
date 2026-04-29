@@ -23,6 +23,7 @@ const words = [
 ];
 
 export default function ScrollIntro() {
+  // Fixed "we can" movement on mobile
   const listRef = useRef(null);
   const containerRef = useRef(null);
 

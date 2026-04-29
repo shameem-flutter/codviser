@@ -143,7 +143,9 @@
 
 @media (max-width: 768px) {
   .timeline-container {
-    padding: 20px 0;
+    padding: 40px 0;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   }
 
   .timeline-line {
@@ -152,7 +154,7 @@
   }
   
   .timeline-dot {
-    left: 40px;
+    left: 50%; /* Center relative to the line */
     transform: translate(-50%, -50%);
   }
 
@@ -161,18 +163,19 @@
     width: 100%;
     margin-left: 0;
     justify-content: flex-start; /* Align cards to the left next to the line */
-    padding: 40px 20px;
-    padding-left: 80px; /* Space for the line */
-    text-align: left; /* Better readability on mobile */
+    padding: 30px 20px;
+    padding-left: 70px; /* Reduced space to bring cards closer to the line */
+    text-align: left;
+    opacity: 0; /* Hidden initially, GSAP will handle fade-in */
   }
 
   .timeline-card {
     max-width: 100%;
-    background: rgba(255, 255, 255, 0.6); 
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.05);
-    padding: 30px;
+    background: rgba(255, 255, 255, 0.8); /* Slightly more opaque for readability */
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.05);
+    padding: 24px;
   }
 }
 

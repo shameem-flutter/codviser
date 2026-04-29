@@ -11,10 +11,10 @@ export const HERO_BG = '#F0F4FF'; // soft lavender-white
 
 // ─── BLOB GRADIENTS ──────────────────────────────────────────
 export const BLOB_COLORS = {
-  blob1: 'radial-gradient(circle at 40% 40%, #404142ff, #bababaff 45%, #e2e2e2ff 80%)',
-  blob2: 'radial-gradient(circle at 60% 60%, #ebebebff, #565559ff 45%, #2d2d2fff 80%)',
-  blob3: 'radial-gradient(circle at 50% 50%, #ccccccff, #ffffffff 50%, #a07d7dff 85%)',
-  blob4: 'radial-gradient(circle at 50% 50%, #939293ff, #464946ff 50%, #141512ff 85%)',
+  blob1: 'radial-gradient(circle at 40% 40%, #222222ff, #3a3737ff 45%, #848282ff 80%)',
+  blob2: 'radial-gradient(circle at 60% 60%, #767676ff, #e8e8e8ff 45%, #101010ff 80%)',
+  blob3: 'radial-gradient(circle at 50% 50%, #e9e9e9ff, #000000ff 50%, #787878ff 85%)',
+  blob4: 'radial-gradient(circle at 50% 50%, #000000ff, #747474ff 50%, #ffffffff 85%)',
 };
 
 // ─── TYPOGRAPHY ──────────────────────────────────────────────
