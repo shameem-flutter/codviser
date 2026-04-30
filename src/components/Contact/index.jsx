@@ -33,7 +33,8 @@ export default function Contact() {
   };
 
   return (
-    <div className="contact-grid" style={{ marginTop: '20px', textAlign: 'left' }}>
+    <section className="contact-section">
+      <div className="contact-grid">
 
       {/* 1. Contact Details */}
       <div className="contact-block">
@@ -175,6 +176,7 @@ export default function Contact() {
         </form>
       </div>
 
-    </div>
+      </div>
+    </section>
   );
 }

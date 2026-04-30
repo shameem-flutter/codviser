@@ -5,58 +5,42 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SCROLLER = ".scroll-wrapper";
 
-export const initIntroAnimation = (list, container) => {
+export const initIntroAnimation = (list, container, isMobileParam) => {
   if (!list || !container) return;
 
   const items = list.querySelectorAll("li");
   if (!items.length) return;
 
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = isMobileParam !== undefined ? isMobileParam : window.innerWidth <= 768;
   const activeScroller = isMobile ? window : SCROLLER;
 
   const triggers = [];
 
   if (isMobile) {
     const label = container.querySelector(".intro-sticky-label");
-
     if (label) {
-      // Clear any prior transforms
-      label.style.transform = "";
-      label.style.willChange = "transform";
-
-      // Measure BEFORE GSAP touches the items — clean layout snapshot
-      const labelDocTop = window.scrollY + label.getBoundingClientRect().top;
-      const labelH = label.offsetHeight;
-      const viewportH = window.innerHeight;
-
-      // This constant never changes after init:
-      // shift = scrollY + viewportH/2 - labelH/2 - labelDocTop
-      //       = scrollY + C
-      const C = viewportH / 2 - labelH / 2 - labelDocTop;
-
-      // Section height measured lazily (after GSAP has run) so we clamp correctly
-      let sectionH = 0;
-
-      const updateLabel = () => {
-        if (!sectionH) sectionH = container.offsetHeight;
-        const shift = window.scrollY + C;
-        const clamped = Math.max(0, Math.min(shift, sectionH - labelH));
-        label.style.transform = `translateY(${clamped}px)`;
-      };
-
-      // Attach scroll listener BEFORE GSAP initial state so nothing shifts our measurement
-      window.addEventListener("scroll", updateLabel, { passive: true });
-
-      // Set initial position on next frame (after browser paints initial layout)
-      const rafId = requestAnimationFrame(updateLabel);
-
-      triggers.push({
-        kill: () => {
-          cancelAnimationFrame(rafId);
-          window.removeEventListener("scroll", updateLabel);
-          if (label) label.style.transform = "";
-        },
+      const stLabel = ScrollTrigger.create({
+        trigger: container,
+        start: "top bottom",
+        end: "bottom top",
+        scroller: activeScroller,
+        onUpdate: (self) => {
+          const labelH = label.offsetHeight;
+          const containerH = container.offsetHeight;
+          const viewportH = window.innerHeight;
+          
+          const scrollPos = self.scroll();
+          const startPos = self.start;
+          
+          const movedUp = scrollPos - startPos;
+          const targetY = movedUp - (viewportH / 2) - (labelH / 2);
+          
+          const clamped = Math.max(0, Math.min(targetY, containerH - labelH));
+          
+          gsap.set(label, { y: clamped });
+        }
       });
+      triggers.push(stLabel);
     }
   }
 
@@ -74,8 +58,8 @@ export const initIntroAnimation = (list, container) => {
 
     const stIn = ScrollTrigger.create({
       trigger: item,
-      start: "top 68%",
-      end: "top 42%",
+      start: "top 75%",
+      end: "center 55%",
       scroller: activeScroller,
       animation: gsap.to(item, {
         opacity: 1,
@@ -91,8 +75,8 @@ export const initIntroAnimation = (list, container) => {
     if (!isLast) {
       const stOut = ScrollTrigger.create({
         trigger: item,
-        start: "bottom 58%",
-        end: "bottom 32%",
+        start: "center 45%",
+        end: "bottom 25%",
         scroller: activeScroller,
         animation: gsap.to(item, {
           opacity: 0.15,

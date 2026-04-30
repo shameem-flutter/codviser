@@ -99,39 +99,35 @@
   .intro-sticky-label {
     position: relative !important;
     top: 0 !important;
-    transform: none; /* JS overrides this */
-    flex-shrink: 0 !important;
-    align-self: flex-start !important;
     margin: 0 !important;
-    font-size: clamp(1.6rem, 7vw, 3rem) !important;
+    font-size: clamp(1.4rem, 6vw, 2.5rem) !important;
     font-weight: 700 !important;
-    line-height: 1.2 !important;
+    line-height: 1.5 !important; /* Match li line-height */
     white-space: nowrap !important;
     color: #000 !important;
-    /* GPU layer — prevents paint during transform updates */
     will-change: transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
   }
 
   /* ── Word list ──
-     50vh top + bottom padding means the first and last words
-     each pass through the exact vertical center of the screen. */
+     10vh top padding removes the unwanted initial whitespace
+     while keeping a slight visual break from the previous section. */
   .intro-list {
     display: block !important;
     flex: 1 1 auto !important;
     margin: 0 !important;
-    padding: 50vh 0 50vh !important;
+    padding: 10vh 0 10vh !important;
     list-style: none !important;
     overflow: visible !important;
   }
 
   .intro-list li {
-    font-size: clamp(1.8rem, 9vw, 4.5rem) !important;
-    line-height: 1.25 !important;
+    font-size: clamp(1.4rem, 6vw, 2.5rem) !important;
+    line-height: 1.5 !important;
     text-align: left !important;
     margin: 0 !important;
-    padding: 0.35rem 0 !important;
+    padding: 0.5rem 0 !important;
     opacity: 0.15;
     will-change: opacity, transform;
     /* Promote each word to its own layer for smooth GPU compositing */

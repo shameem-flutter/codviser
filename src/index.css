@@ -191,6 +191,18 @@ p {
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
+.nav-progress-bar {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  width: 0%;
+  transition: width 0.1s ease-out;
+  z-index: 1001;
 }
 
 .nav-logo-text {
@@ -212,12 +224,31 @@ p {
   text-decoration: none;
   opacity: 0.8;
   transition: var(--transition);
+  position: relative;
+  padding: 4px 0;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent);
+  transition: var(--transition);
+  transform: translateX(-50%);
+  border-radius: 2px;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
   color: var(--text);
   opacity: 1;
+}
+
+.nav-links a.active::after {
+  width: 100%;
 }
 
 .nav-cta {
@@ -245,7 +276,8 @@ p {
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   z-index: 999;
-  display: none; /* Hidden by default */
+  display: none;
+  /* Hidden by default */
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -257,7 +289,8 @@ p {
 
 @media (max-width: 768px) {
   .mobile-overlay {
-    display: flex; /* Only show on mobile */
+    display: flex;
+    /* Only show on mobile */
   }
 }
 
@@ -414,7 +447,8 @@ p {
   }
 
   .navbar.scrolled {
-    background: #FFFFFF !important; /* Solid white on mobile */
+    background: #FFFFFF !important;
+    /* Solid white on mobile */
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -539,7 +573,8 @@ p {
 /* CTA & Footer */
 .cta-section {
   padding-top: 120px;
-  padding-bottom: 0; /* Remove bottom padding as footer is inside */
+  padding-bottom: 0;
+  /* Remove bottom padding as footer is inside */
   min-height: auto !important;
 }
 

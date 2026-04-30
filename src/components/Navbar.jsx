@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import CodviserLogo from './CodviserLogo';
 
 const NAV_LINKS = [
@@ -11,8 +11,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
+  const progressRef = useRef(null)
 
-  /* ── Scroll-aware shrink ── */
+  /* ── Scroll-aware shrink & Progress ── */
   useEffect(() => {
     const isMobile = window.innerWidth <= 768;
     const wrapper = document.querySelector('.scroll-wrapper');
@@ -22,7 +23,17 @@ export default function Navbar() {
 
     const onScroll = () => {
       const scrollPos = isMobile ? window.scrollY : wrapper.scrollTop;
+      const scrollMax = isMobile 
+        ? document.documentElement.scrollHeight - window.innerHeight 
+        : wrapper.scrollHeight - wrapper.clientHeight;
+      
       setScrolled(scrollPos > 40);
+
+      // Update progress bar
+      if (progressRef.current && scrollMax > 0) {
+        const progress = (scrollPos / scrollMax) * 100;
+        progressRef.current.style.width = `${progress}%`;
+      }
     }
 
     scroller.addEventListener('scroll', onScroll, { passive: true });
@@ -55,11 +66,34 @@ export default function Navbar() {
 
   const close = () => setMenuOpen(false)
 
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    const id = href.replace('#', '');
+    const el = document.getElementById(id);
+    if (el) {
+      const isMobile = window.innerWidth <= 768;
+      const wrapper = document.querySelector('.scroll-wrapper');
+      
+      if (isMobile) {
+        window.scrollTo({
+          top: el.offsetTop - 56,
+          behavior: 'smooth'
+        });
+      } else {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      close();
+    }
+  };
+
   return (
     <>
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
+        {/* Progress Bar */}
+        <div className="nav-progress-bar" ref={progressRef} />
+
         {/* Logo */}
-        <a href="#hero" className="nav-logo">
+        <a href="#hero" className="nav-logo" onClick={(e) => handleNavClick(e, '#hero')}>
           <CodviserLogo width={120} color="#000000" />
         </a>
 
@@ -72,6 +106,7 @@ export default function Navbar() {
                 <a
                   href={href}
                   className={active === id ? 'active' : ''}
+                  onClick={(e) => handleNavClick(e, href)}
                 >
                   {label}
                 </a>
@@ -82,7 +117,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="nav-right-actions">
-          <button className="nav-cta" onClick={() => document.getElementById('contact')?.scrollIntoView()}>
+          <button className="nav-cta" onClick={(e) => handleNavClick(e, '#contact')}>
             Start Project
           </button>
 
@@ -105,7 +140,7 @@ export default function Navbar() {
           <a
             key={label}
             href={href}
-            onClick={close}
+            onClick={(e) => handleNavClick(e, href)}
             className={`reveal-up stagger-${i + 1}${menuOpen ? ' reveal-visible' : ''}`}
           >
             {label}

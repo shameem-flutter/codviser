@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import { initIntroAnimation } from "./intro.config";
 import "./intro.css";
 
@@ -26,16 +27,17 @@ export default function ScrollIntro() {
   // Fixed "we can" movement on mobile
   const listRef = useRef(null);
   const containerRef = useRef(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // The scroll container is .scroll-wrapper, NOT the document.
     // CSS animation-timeline: view() reads the document scroll — it will
     // NOT work here. We always use GSAP wired to .scroll-wrapper.
-    const cleanup = initIntroAnimation(listRef.current, containerRef.current);
+    const cleanup = initIntroAnimation(listRef.current, containerRef.current, isMobile);
     return () => {
       if (cleanup) cleanup();
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     // scroll-snap-align: start is set in CSS so this section locks in view
