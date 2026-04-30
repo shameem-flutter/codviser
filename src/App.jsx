@@ -55,24 +55,7 @@ function Home({ scrollWrapperRef }) {
 export default function App() {
   const isMobile = useIsMobile()
   const scrollWrapperRef = useRef(null)
-  const progressRef = useRef(null)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!isMobile || !scrollWrapperRef.current || !progressRef.current) return
-      
-      const el = scrollWrapperRef.current
-      const scrollTotal = el.scrollHeight - el.clientHeight
-      const progress = (el.scrollTop / scrollTotal)
-      progressRef.current.style.transform = `scaleX(${progress})`
-    }
-
-    const wrapper = scrollWrapperRef.current
-    if (wrapper) {
-      wrapper.addEventListener('scroll', handleScroll, { passive: true })
-    }
-    return () => wrapper?.removeEventListener('scroll', handleScroll)
-  }, [isMobile])
 
   return (
     <Router>

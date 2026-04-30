@@ -17,7 +17,6 @@
   background: #fff;
   font-family: 'Geist', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
   color: rgba(19, 18, 18, 0.9);
-  /* overflow-x: hidden removed to fix position: sticky */
 }
 
 
@@ -71,10 +70,9 @@
   will-change: opacity, filter;
 }
 
-/* ── Mobile ── */
+  /* ── Mobile ── */
 @media (max-width: 768px) {
 
-  /* No overflow clipping — sticky/transform-based centering needs this */
   .intro-container,
   .intro-scroll-body {
     overflow: visible !important;
@@ -82,56 +80,52 @@
   }
 
   .intro-section {
-    display: flex !important;
+    display: flex !important; /* Re-enable flex for centering */
     flex-direction: row !important;
-    flex-wrap: nowrap !important;
     align-items: flex-start !important;
     justify-content: center !important;
-    /* no min-height — list padding drives the scroll height */
-    height: auto !important;
-    padding: 0 16px !important;
-    gap: 8px !important;
-  }
-
-  /* ── "we can" label ──
-     JS computes translateY once per scroll tick (no DOM reads = no flicker).
-     CSS only provides base styles. */
-  .intro-sticky-label {
+    padding: 0 1rem 20vh !important;
     position: relative !important;
-    top: 0 !important;
-    margin: 0 !important;
-    font-size: clamp(1.4rem, 6vw, 2.5rem) !important;
-    font-weight: 700 !important;
-    line-height: 1.5 !important; /* Match li line-height */
-    white-space: nowrap !important;
-    color: #000 !important;
-    will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
   }
 
-  /* ── Word list ──
-     10vh top padding removes the unwanted initial whitespace
-     while keeping a slight visual break from the previous section. */
+  .intro-sticky-label {
+    position: fixed !important;
+    top: 50% !important;
+    left: 0 !important;
+    right: 50% !important;
+    transform: translateY(-51.5%) !important; /* Micro-nudge for baseline match */
+    margin: 0 !important;
+    padding: 0 0.6rem 0 0 !important;
+    font-size: clamp(1.4rem, 6.5vw, 2.2rem) !important;
+    font-weight: 800 !important;
+    height: 4rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    white-space: nowrap !important;
+    text-align: right !important;
+    opacity: 0;
+    z-index: 100;
+    pointer-events: none;
+  }
+
   .intro-list {
     display: block !important;
-    flex: 1 1 auto !important;
     margin: 0 !important;
-    padding: 10vh 0 10vh !important;
+    padding: 50vh 0 50vh 50% !important; /* Start words at 50% */
     list-style: none !important;
-    overflow: visible !important;
   }
 
   .intro-list li {
-    font-size: clamp(1.4rem, 6vw, 2.5rem) !important;
-    line-height: 1.5 !important;
+    font-size: clamp(1.4rem, 6.5vw, 2.2rem) !important;
+    line-height: 4rem !important; /* Match label */
     text-align: left !important;
     margin: 0 !important;
-    padding: 0.5rem 0 !important;
-    opacity: 0.15;
+    padding: 0 0 0 0.6rem !important; /* Gap half 2 */
+    height: 4rem !important;
+    display: block !important;
+    opacity: 0.1;
+    white-space: nowrap !important;
     will-change: opacity, transform;
-    /* Promote each word to its own layer for smooth GPU compositing */
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
   }
 }

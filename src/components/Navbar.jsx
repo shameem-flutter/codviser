@@ -28,17 +28,7 @@ export default function Navbar() {
 
     const onScroll = () => {
       const scrollPos = isMobile ? window.scrollY : (wrapper ? wrapper.scrollTop : window.scrollY);
-      const scrollMax = isMobile 
-        ? document.documentElement.scrollHeight - window.innerHeight 
-        : (wrapper ? wrapper.scrollHeight - wrapper.clientHeight : document.documentElement.scrollHeight - window.innerHeight);
-      
       setScrolled(scrollPos > 40);
-
-      // Update progress bar
-      if (progressRef.current && scrollMax > 0) {
-        const progress = (scrollPos / scrollMax) * 100;
-        progressRef.current.style.width = `${progress}%`;
-      }
     }
 
     scroller.addEventListener('scroll', onScroll, { passive: true });
@@ -111,9 +101,6 @@ export default function Navbar() {
   return (
     <>
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
-        {/* Progress Bar */}
-        <div className="nav-progress-bar" ref={progressRef} />
-
         {/* Logo */}
         <Link to="/" className="nav-logo" onClick={(e) => handleNavClick(e, '#hero')}>
           <CodviserLogo width={120} color="#000000" />

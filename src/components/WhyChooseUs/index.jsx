@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function WhyChooseUs() {
   const [ref, inView] = useInView(0.1)
   const timelineRef = useRef(null)
+  const lineRef = useRef(null)
   const dotRef = useRef(null)
   const trailRef = useRef(null)
   const itemRefs = useRef([])
@@ -43,16 +44,25 @@ export default function WhyChooseUs() {
         const lastItem = itemRefs.current[itemRefs.current.length - 1];
         if (!firstItem || !lastItem) return;
 
-        const startPos = firstItem.offsetTop + firstItem.offsetHeight / 2;
-        const endPos = lastItem.offsetTop + lastItem.offsetHeight / 2;
+        // Start from the TOP of the first card, end at the BOTTOM of the last card
+        const startPos = firstItem.offsetTop;
+        const endPos = lastItem.offsetTop + lastItem.offsetHeight;
         const totalDistance = endPos - startPos;
 
-        // Set initial dot position
-        gsap.set(dotRef.current, { top: 0 });
+        // Adjust the line's visual start and end
+        if (lineRef.current) {
+          lineRef.current.style.top = `${startPos}px`;
+          lineRef.current.style.height = `${totalDistance}px`;
+        }
 
-        // 1. Dot & Trail Progress
-        gsap.to(dotRef.current, {
-          top: "100%",
+        // Set initial state
+        gsap.set(dotRef.current, { top: 0 });
+        gsap.set(trailRef.current, { height: 0 });
+
+        // 1. Dot & Trail Progress - Unified animation
+        gsap.to([dotRef.current, trailRef.current], {
+          top: (i, el) => el === dotRef.current ? "100%" : 0, // dot moves to bottom, trail stays at top
+          height: (i, el) => el === trailRef.current ? "100%" : "16px", // trail grows, dot stays dot-sized
           ease: "none",
           scrollTrigger: {
             trigger: timelineRef.current,
@@ -60,21 +70,9 @@ export default function WhyChooseUs() {
             end: () => `top+=${endPos} center`,
             scrub: 0.8,
             scroller: activeScroller,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              if (trailRef.current) {
-                trailRef.current.style.height = `${self.progress * 100}%`;
-              }
-            }
+            invalidateOnRefresh: true
           }
         });
-
-        // Adjust the line's visual start and end
-        const line = timelineRef.current.querySelector('.timeline-line');
-        if (line) {
-          line.style.top = `${startPos}px`;
-          line.style.height = `${totalDistance}px`;
-        }
 
         // 2. Section Reveals & Pulses
         itemRefs.current.forEach((item, i) => {
@@ -184,7 +182,7 @@ export default function WhyChooseUs() {
         </div>
 
         <div className="timeline-container" ref={timelineRef}>
-          <div className="timeline-line">
+          <div className="timeline-line" ref={lineRef}>
             <div className="timeline-trail" ref={trailRef}></div>
             <div className="timeline-dot" ref={dotRef}></div>
           </div>

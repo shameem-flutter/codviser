@@ -47,7 +47,7 @@ export default function ScrollIntro() {
       <div className="intro-scroll-body">
         <section className="intro-section">
           <p className="intro-sticky-label" aria-hidden="true">
-            we can&nbsp;
+            we can
           </p>
 
           <ul

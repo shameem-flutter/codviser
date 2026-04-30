@@ -144,6 +144,34 @@
   min-height: 180px;
 }
 
+.phone-input-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.phone-country-select {
+  flex: 0 0 100px;
+  padding: 18px 12px;
+  background: var(--bg);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-family: var(--font-main);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.phone-country-select:focus {
+  background: var(--white);
+  border-color: var(--accent);
+}
+
+.phone-input {
+  flex: 1;
+}
+
 .form-submit-wrapper {
   display: flex;
   justify-content: flex-start;
@@ -256,9 +284,14 @@
 
   .form-input,
   .form-select,
-  .form-textarea {
+  .form-textarea,
+  .phone-country-select {
     padding: 14px 16px;
     font-size: 15px;
+  }
+
+  .phone-country-select {
+    flex: 0 0 90px;
   }
 
   .btn-submit {

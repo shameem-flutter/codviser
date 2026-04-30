@@ -201,16 +201,6 @@ p {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
 }
 
-.nav-progress-bar {
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  height: 2px;
-  background: var(--accent);
-  width: 0%;
-  transition: width 0.1s ease-out;
-  z-index: 1001;
-}
 
 .nav-logo-text {
   font-size: 19px;

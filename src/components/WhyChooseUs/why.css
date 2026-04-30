@@ -56,7 +56,7 @@
   position: absolute;
   top: 0;
   left: 50%;
-  width: 1px;
+  width: 2px;
   background: var(--glass-border);
   transform: translateX(-50%);
 }
@@ -68,8 +68,8 @@
   width: 100%;
   height: 0;
   background: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
-  z-index: 1;
+  box-shadow: 0 0 12px var(--accent);
+  z-index: 2;
 }
 
 .timeline-dot {
@@ -151,6 +151,7 @@
   .timeline-line {
     left: 40px; /* Shift to left */
     transform: none;
+    width: 2px;
   }
   
   .timeline-dot {

@@ -5,6 +5,7 @@ import './contact.css';
 export default function Contact() {
   const form = useRef();
   const [formState, setFormState] = useState('idle'); // idle, loading, success, error
+  const [countryCode, setCountryCode] = useState('+91');
 
   // WhatsApp configuration
   const whatsappNumber = "917561001809";
@@ -15,11 +16,20 @@ export default function Contact() {
     e.preventDefault();
     setFormState('loading');
 
+    const formData = new FormData(form.current);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: `${countryCode} ${formData.get('phone')}`,
+      service: formData.get('service'),
+      message: formData.get('message'),
+    };
+
     const SERVICE_ID = 'service_bqpsjea';
     const TEMPLATE_ID = 'template_y50cl49';
     const PUBLIC_KEY = 'b1Ai5cTZ-x1AFBJG0';
 
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, data, PUBLIC_KEY)
       .then((result) => {
         console.log('Email sent successfully:', result.text);
         setFormState('success');
@@ -31,6 +41,18 @@ export default function Contact() {
         setTimeout(() => setFormState('idle'), 5000);
       });
   };
+
+  const countries = [
+    { code: '+91', label: 'IN', name: 'India' },
+    { code: '+1', label: 'US', name: 'USA' },
+    { code: '+44', label: 'UK', name: 'UK' },
+    { code: '+971', label: 'AE', name: 'UAE' },
+    { code: '+61', label: 'AU', name: 'Australia' },
+    { code: '+1', label: 'CA', name: 'Canada' },
+    { code: '+49', label: 'DE', name: 'Germany' },
+    { code: '+33', label: 'FR', name: 'France' },
+    { code: '+65', label: 'SG', name: 'Singapore' },
+  ];
 
   return (
     <section className="contact-section">
@@ -137,15 +159,28 @@ export default function Contact() {
           <div className="form-grid">
             <div className="form-group">
               <label htmlFor="name" className="form-label">Full name</label>
-              <input type="text" id="name" name="name" className="form-input" placeholder="John Doe" required />
+              <input type="text" id="name" name="name" className="form-input" placeholder="Name" required />
             </div>
             <div className="form-group">
               <label htmlFor="email" className="form-label">Email address</label>
-              <input type="email" id="email" name="email" className="form-input" placeholder="john@example.com" required />
+              <input type="email" id="email" name="email" className="form-input" placeholder="Email" required />
             </div>
             <div className="form-group">
               <label htmlFor="phone" className="form-label">Phone number</label>
-              <input type="tel" id="phone" name="phone" className="form-input" placeholder="+1 (555) 000-0000" />
+              <div className="phone-input-wrapper">
+                <select 
+                  className="phone-country-select"
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
+                >
+                  {countries.map((c) => (
+                    <option key={`${c.label}-${c.code}`} value={c.code}>
+                      {c.label} ({c.code})
+                    </option>
+                  ))}
+                </select>
+                <input type="tel" id="phone" name="phone" className="form-input phone-input" placeholder="Phone number" />
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="service" className="form-label">Service interested in</label>
