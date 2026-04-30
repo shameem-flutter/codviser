@@ -46,20 +46,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scroll Management */
-.scroll-wrapper {
+.scroll-wrapper,
+.page-wrapper {
   height: 100vh;
   overflow-y: scroll;
   overflow-x: hidden;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
   scrollbar-width: none;
-  /* Firefox */
   -ms-overflow-style: none;
-  /* IE/Edge */
 }
 
-.scroll-wrapper::-webkit-scrollbar {
+.scroll-wrapper {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.page-wrapper {
+  scroll-snap-type: none;
+  scroll-behavior: auto; /* We want instant scroll on navigation */
+}
+
+.scroll-wrapper::-webkit-scrollbar,
+.page-wrapper::-webkit-scrollbar {
   display: none;
 }
 
@@ -579,7 +586,7 @@ p {
 }
 
 .cta-content {
-  text-align: center;
+  text-align: left;
   margin-bottom: 80px;
 }
 

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import CodviserLogo from './CodviserLogo';
 
 const NAV_LINKS = [
@@ -12,20 +13,24 @@ export default function Navbar() {
   const [active, setActive] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
   const progressRef = useRef(null)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   /* ── Scroll-aware shrink & Progress ── */
   useEffect(() => {
     const isMobile = window.innerWidth <= 768;
     const wrapper = document.querySelector('.scroll-wrapper');
-    const scroller = isMobile ? window : wrapper;
+    
+    // On non-home pages, we might not have a .scroll-wrapper
+    const scroller = isMobile ? window : (wrapper || window);
     
     if (!scroller) return;
 
     const onScroll = () => {
-      const scrollPos = isMobile ? window.scrollY : wrapper.scrollTop;
+      const scrollPos = isMobile ? window.scrollY : (wrapper ? wrapper.scrollTop : window.scrollY);
       const scrollMax = isMobile 
         ? document.documentElement.scrollHeight - window.innerHeight 
-        : wrapper.scrollHeight - wrapper.clientHeight;
+        : (wrapper ? wrapper.scrollHeight - wrapper.clientHeight : document.documentElement.scrollHeight - window.innerHeight);
       
       setScrolled(scrollPos > 40);
 
@@ -38,10 +43,15 @@ export default function Navbar() {
 
     scroller.addEventListener('scroll', onScroll, { passive: true });
     return () => scroller.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [location.pathname]);
 
   /* ── Active link via IntersectionObserver ── */
   useEffect(() => {
+    if (location.pathname !== '/') {
+      setActive('');
+      return;
+    }
+
     const isMobile = window.innerWidth <= 768;
     const wrapper = document.querySelector('.scroll-wrapper');
     const sectionIds = ['hero', 'services', 'about', 'contact'];
@@ -62,13 +72,20 @@ export default function Navbar() {
     });
 
     return () => observers.forEach(o => o.disconnect());
-  }, []);
+  }, [location.pathname]);
 
   const close = () => setMenuOpen(false)
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
     const id = href.replace('#', '');
+    
+    if (location.pathname !== '/') {
+      navigate('/' + href);
+      close();
+      return;
+    }
+
     const el = document.getElementById(id);
     if (el) {
       const isMobile = window.innerWidth <= 768;
@@ -79,8 +96,13 @@ export default function Navbar() {
           top: el.offsetTop - 56,
           behavior: 'smooth'
         });
-      } else {
+      } else if (wrapper) {
         el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({
+          top: el.offsetTop - 56,
+          behavior: 'smooth'
+        });
       }
       close();
     }
@@ -93,9 +115,9 @@ export default function Navbar() {
         <div className="nav-progress-bar" ref={progressRef} />
 
         {/* Logo */}
-        <a href="#hero" className="nav-logo" onClick={(e) => handleNavClick(e, '#hero')}>
+        <Link to="/" className="nav-logo" onClick={(e) => handleNavClick(e, '#hero')}>
           <CodviserLogo width={120} color="#000000" />
-        </a>
+        </Link>
 
         {/* Links (Centered) */}
         <ul className="nav-links">

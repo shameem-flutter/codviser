@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  
+
   return (
     <footer className="footer">
       <div className="inner">
@@ -11,6 +12,7 @@ export default function Footer() {
             © {currentYear} Codviser. All rights reserved.
           </div>
           <ul className="footer-links">
+            <li><Link to="/faq">FAQ</Link></li>
             <li><a href="https://www.linkedin.com/company/codviser" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
             <li><a href="https://www.facebook.com/Codviser" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             <li><a href="https://www.instagram.com/codviser?igsh=MTNibTA0ZWZ4MW81aQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram</a></li>
