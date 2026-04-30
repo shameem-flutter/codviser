@@ -44,7 +44,7 @@
   font-size: clamp(2rem, 5vw, 4.5rem);
   font-weight: 700;
   line-height: 1.45;
-  margin: 0 1.5rem 0 0;
+  margin: 0 0.8rem 0 0;
   white-space: nowrap;
   color: #000;
   z-index: 10;
@@ -66,7 +66,7 @@
   font-weight: 700;
   line-height: 1.45;
   /* GSAP drives opacity — start dimmed */
-  opacity: 0.2;
+  opacity: 0.1;
   will-change: opacity, filter;
 }
 
@@ -95,7 +95,7 @@
     right: 50% !important;
     transform: translateY(-51.5%) !important; /* Micro-nudge for baseline match */
     margin: 0 !important;
-    padding: 0 0.6rem 0 0 !important;
+    padding: 0 0.35rem 0 0 !important;
     font-size: clamp(1.4rem, 6.5vw, 2.2rem) !important;
     font-weight: 800 !important;
     height: 4rem !important;
@@ -121,9 +121,8 @@
     line-height: 4rem !important; /* Match label */
     text-align: left !important;
     margin: 0 !important;
-    padding: 0 0 0 0.6rem !important; /* Gap half 2 */
+    padding: 0 0 0 0.35rem !important;
     height: 4rem !important;
-    display: block !important;
     opacity: 0.1;
     white-space: nowrap !important;
     will-change: opacity, transform;

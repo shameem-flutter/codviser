@@ -44,7 +44,7 @@ export const initIntroAnimation = (list, container, isMobileParam) => {
       }
 
       // Fade based on proximity to viewport center
-      const threshold = window.innerHeight * 0.12; 
+      const threshold = window.innerHeight * 0.2; 
       if (closestDist < threshold) {
         // Precise transition
         const opacity = Math.min(1, Math.max(0, 1 - (closestDist / threshold)));
@@ -73,7 +73,7 @@ export const initIntroAnimation = (list, container, isMobileParam) => {
       start: "top 75%",
       end: "top 55%",
       scroller: activeScroller,
-      scrub: 1,
+      scrub: 2,
       animation: gsap.to(label, { opacity: 1 }),
     });
     triggers.push(stLabelFade);
@@ -95,11 +95,11 @@ export const initIntroAnimation = (list, container, isMobileParam) => {
   items.forEach((item, index) => {
     const isLast = index === items.length - 1;
 
-    // Mobile needs EXTREMELY tight triggers for single-word focus at center
-    const inStart = isMobile ? "center 52%" : "top 75%";
+    // Reaches full highlight exactly at the line (50%) and stays active upwards
+    const inStart = isMobile ? "center 53%" : "top 75%";
     const inEnd = isMobile ? "center 50%" : "center 50%";
-    const outStart = isMobile ? "center 50%" : "center 45%";
-    const outEnd = isMobile ? "center 48%" : "bottom 25%";
+    const outStart = isMobile ? "center 45%" : "center 45%";
+    const outEnd = isMobile ? "center 35%" : "bottom 15%";
 
     const stIn = ScrollTrigger.create({
       trigger: item,
@@ -108,12 +108,12 @@ export const initIntroAnimation = (list, container, isMobileParam) => {
       scroller: activeScroller,
       animation: gsap.to(item, {
         opacity: 1,
-        scale: 1, // Keep scale neutral for perfect alignment
+        scale: 1, 
         filter: "brightness(1.15)",
         ease: "none",
         force3D: true,
       }),
-      scrub: isMobile ? true : 1.2,
+      scrub: isMobile ? 0.8 : 2, // Increased scrub lag
     });
     triggers.push(stIn);
 
@@ -130,7 +130,7 @@ export const initIntroAnimation = (list, container, isMobileParam) => {
           ease: "none",
           force3D: true,
         }),
-        scrub: isMobile ? true : 1.2,
+        scrub: isMobile ? 0.8 : 2, // Increased scrub lag
       });
       triggers.push(stOut);
     }
