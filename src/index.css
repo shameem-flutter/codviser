@@ -269,9 +269,7 @@ p {
 .mobile-overlay {
   position: fixed;
   inset: 0;
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background: var(--white);
   z-index: 999;
   display: none;
   /* Hidden by default */

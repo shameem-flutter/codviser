@@ -100,7 +100,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
+      <nav className={`navbar${scrolled || menuOpen ? ' scrolled' : ''}`}>
         {/* Logo */}
         <Link to="/" className="nav-logo" onClick={(e) => handleNavClick(e, '#hero')}>
           <CodviserLogo width={120} color="#000000" />
