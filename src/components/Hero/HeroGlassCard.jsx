@@ -30,8 +30,10 @@ export default function HeroGlassCard({ children }) {
     background: `rgba(255, 255, 255, ${bgAlpha})`,
     border: `1px solid rgba(255, 255, 255, ${borderAlpha})`,
     borderRadius: `${borderRadius}px`,
-    padding: window.innerWidth > 768 ? paddingDesktop : paddingMobile,
-    maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
+    // Pass config values as CSS variables to the stylesheet
+    '--glass-pad-desktop': paddingDesktop,
+    '--glass-pad-mobile': paddingMobile,
+    '--glass-max-w': typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
   };
 
   return (

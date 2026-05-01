@@ -3,45 +3,78 @@
  * ─────────────────────────────────────────────────────────────
  * Renders the animated liquid blob background layer.
  * All blob properties come from hero.config.js → BLOBS array.
- * Mouse parallax is driven by the mousePos prop passed in.
+ * Mouse parallax is driven by direct DOM mutation for performance.
  * ─────────────────────────────────────────────────────────────
  */
+import { useEffect, useRef } from 'react';
 import { BLOBS } from './hero.config';
 
-/**
- * @param {{ mousePos: { x: number, y: number } }} props
- *   mousePos.x / .y — normalized mouse position (-1 to 1) from center
- */
-export default function HeroBlobs({ mousePos }) {
+export default function HeroBlobs() {
+  const blobRefs = useRef([]);
+  const mouseTarget = useRef({ x: 0, y: 0 });
+  const currentPos = useRef({ x: 0, y: 0 });
+  const rafId = useRef(null);
+
+  useEffect(() => {
+    // Track mouse for blob parallax (Target position)
+    const handleMouseMove = (e) => {
+      mouseTarget.current = {
+        x: (e.clientX / window.innerWidth - 0.5) * 2,   // -1 → 1
+        y: (e.clientY / window.innerHeight - 0.5) * 2,  // -1 → 1
+      };
+    };
+
+    // Smooth interpolation loop (LERP)
+    const lerp = (start, end, factor) => start + (end - start) * factor;
+
+    const updateSmoothMouse = () => {
+      currentPos.current.x = lerp(currentPos.current.x, mouseTarget.current.x, 0.08);
+      currentPos.current.y = lerp(currentPos.current.y, mouseTarget.current.y, 0.08);
+
+      blobRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const blob = BLOBS[i];
+        const tx = currentPos.current.x * blob.parallax;
+        const ty = currentPos.current.y * blob.parallax;
+        el.style.transform = `translate(${tx}px, ${ty}px)`;
+      });
+
+      rafId.current = requestAnimationFrame(updateSmoothMouse);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    rafId.current = requestAnimationFrame(updateSmoothMouse);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
+  }, []);
+
   return (
     <div className="hero-liquid-bg" aria-hidden="true">
-      {BLOBS.map((blob) => {
-        const tx = mousePos.x * blob.parallax;
-        const ty = mousePos.y * blob.parallax;
-
-        return (
-          <div
-            key={blob.id}
-            className="hero-blob"
-            style={{
-              // Size
-              width: blob.size,
-              height: blob.size,
-              // Position
-              ...blob.position,
-              // Color
-              background: blob.gradient,
-              // Opacity
-              opacity: blob.opacity,
-              // Animation timing via CSS custom props
-              '--blob-dur': `${blob.animDur}s`,
-              '--blob-delay': `${blob.animDelay}s`,
-              // Parallax
-              transform: `translate(${tx}px, ${ty}px)`,
-            }}
-          />
-        );
-      })}
+      {BLOBS.map((blob, i) => (
+        <div
+          key={blob.id}
+          ref={(el) => (blobRefs.current[i] = el)}
+          className="hero-blob"
+          style={{
+            // Size
+            width: blob.size,
+            height: blob.size,
+            // Position
+            ...blob.position,
+            // Color
+            background: blob.gradient,
+            // Opacity
+            opacity: blob.opacity,
+            // Animation timing via CSS custom props
+            '--blob-dur': `${blob.animDur}s`,
+            '--blob-delay': `${blob.animDelay}s`,
+            // Parallax handled via ref for performance
+          }}
+        />
+      ))}
     </div>
   );
 }

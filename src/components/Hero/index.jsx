@@ -13,25 +13,14 @@ import HeroGlassCard from './HeroGlassCard';
 
 export default function Hero() {
   const [revealed, setRevealed] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const sectionRef = useRef(null);
 
   useEffect(() => {
     // Trigger reveal animation shortly after mount
     const timer = setTimeout(() => setRevealed(true), 100);
 
-    // Track mouse for blob parallax
-    const handleMouseMove = (e) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 2,   // -1 → 1
-        y: (e.clientY / window.innerHeight - 0.5) * 2,  // -1 → 1
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
@@ -46,7 +35,7 @@ export default function Hero() {
       style={{ background: HERO_BG }}  /* ← Change HERO_BG in hero.config.js */
     >
       {/* ── Animated liquid blob background ── */}
-      <HeroBlobs mousePos={mousePos} />
+      <HeroBlobs />
 
       {/* ── Frosted glass content card ── */}
       <HeroGlassCard>

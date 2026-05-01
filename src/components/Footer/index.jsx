@@ -14,8 +14,9 @@ export default function Footer() {
           <ul className="footer-links">
             <li><Link to="/faq">FAQ</Link></li>
             <li><a href="https://www.linkedin.com/company/codviser" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="https://x.com/codviser" target="_blank" rel="noopener noreferrer">X</a></li>
             <li><a href="https://www.facebook.com/Codviser" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-            <li><a href="https://www.instagram.com/codviser?igsh=MTNibTA0ZWZ4MW81aQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://www.instagram.com/codviser_?igsh=eWZ5MzZsOHQ1cWl2&utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href={`https://wa.me/917561001809?text=${encodeURIComponent("Hi,I’m looking to build a project. Can you guide me on the next steps?")}`} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
           </ul>
         </div>

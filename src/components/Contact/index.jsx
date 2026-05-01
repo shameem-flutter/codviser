@@ -31,12 +31,10 @@ export default function Contact() {
 
     emailjs.send(SERVICE_ID, TEMPLATE_ID, data, PUBLIC_KEY)
       .then((result) => {
-        console.log('Email sent successfully:', result.text);
         setFormState('success');
         form.current.reset();
         setTimeout(() => setFormState('idle'), 5000);
       }, (error) => {
-        console.error('Email sending failed:', error.text);
         setFormState('error');
         setTimeout(() => setFormState('idle'), 5000);
       });
@@ -132,7 +130,7 @@ export default function Contact() {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
             Facebook
           </a>
-          <a href="https://www.instagram.com/codviser?igsh=MTNibTA0ZWZ4MW81aQ%3D%3D&utm_source=qr" className="social-pill" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.instagram.com/codviser_?igsh=eWZ5MzZsOHQ1cWl2&utm_source=qr" className="social-pill" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
             Instagram
           </a>
@@ -140,7 +138,7 @@ export default function Contact() {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" /><path d="M14 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1Z" /><path d="M9 14a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-1 0v1Z" /><path d="M14 14a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-1 0v1Z" /></svg>
             WhatsApp
           </a>
-          <a href="#" className="social-pill" target="_blank" rel="noopener noreferrer">
+          <a href="https://x.com/codviser" className="social-pill" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" /></svg>
             Twitter / X
           </a>

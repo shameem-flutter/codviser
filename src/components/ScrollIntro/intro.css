@@ -31,7 +31,7 @@
   justify-content: center;
   /* padding-top is minimal to move directly into the first word. 
      padding-bottom is set so the section ends right when 'do it.' aligns with 'we can'. */
-  padding: 0 2rem 10vh;
+  padding: 0 2rem 5vh;
 }
 
 /* Sticky "we can " prefix — locked in the vertical center */
@@ -53,7 +53,7 @@
 /* ── Word list ── */
 .intro-list {
   list-style: none;
-  padding: 50vh 0;
+  padding: 50vh 0 20vh 0;
   /* Ensures words scroll past the center-locked label */
   margin: 0;
   flex: 0 1 auto;
@@ -84,7 +84,7 @@
     flex-direction: row !important;
     align-items: flex-start !important;
     justify-content: center !important;
-    padding: 0 1rem 20vh !important;
+    padding: 0 1rem 5vh !important;
     position: relative !important;
   }
 
@@ -112,7 +112,7 @@
   .intro-list {
     display: block !important;
     margin: 0 !important;
-    padding: 50vh 0 50vh 50% !important; /* Start words at 50% */
+    padding: 50vh 0 20vh 50% !important; /* Start words at 50% */
     list-style: none !important;
   }
 

@@ -18,7 +18,7 @@ export const BLOB_COLORS = {
 };
 
 // ─── TYPOGRAPHY ──────────────────────────────────────────────
-export const GRADIENT_TEXT = 'linear-gradient(to right, #000, #000)';
+export const GRADIENT_TEXT = 'linear-gradient(to right, #010101ff, #000)';
 
 // ─── COMPONENT ACCENTS ───────────────────────────────────────
 export const HERO_ACCENTS = {

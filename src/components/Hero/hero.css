@@ -30,7 +30,8 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(72px);
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Remove transform from transition to prevent conflicts with JS parallax */
+  transition: opacity 0.5s ease; 
   will-change: transform;
   animation: heroBlobMorph var(--blob-dur, 12s) ease-in-out infinite alternate;
   animation-delay: var(--blob-delay, 0s);
@@ -67,6 +68,16 @@
   height: 100%;
   transition: box-shadow 0.4s ease;
   overflow: hidden;
+  
+  /* Layout variables controlled by JS config but handled by CSS media queries */
+  padding: var(--glass-pad-desktop);
+  max-width: var(--glass-max-w);
+}
+
+@media (max-width: 768px) {
+  .hero-glass-card {
+    padding: var(--glass-pad-mobile);
+  }
 }
 
 .hero-glass-card:hover {
