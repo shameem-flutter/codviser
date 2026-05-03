@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
 import { useIsMobile } from './hooks/useIsMobile';
@@ -6,13 +6,17 @@ import Cursor from './components/Cursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero/index';
 import Marquee from './components/Marquee';
-import Services from './components/Services/index';
-import WhyChooseUs from './components/WhyChooseUs/index';
-import ScrollIntro from './components/ScrollIntro/index';
-import About from './components/About/index';
-import CTA from './components/CTA';
-import BackgroundMesh from './components/BackgroundMesh';
-import FAQ from './components/FAQ/index';
+
+// Lazy loaded components
+const Services = lazy(() => import('./components/Services/index'));
+const WhyChooseUs = lazy(() => import('./components/WhyChooseUs/index'));
+const ScrollIntro = lazy(() => import('./components/ScrollIntro/index'));
+const About = lazy(() => import('./components/About/index'));
+const CTA = lazy(() => import('./components/CTA'));
+const BackgroundMesh = lazy(() => import('./components/BackgroundMesh'));
+const FAQ = lazy(() => import('./components/FAQ/index'));
+
+const SectionLoader = () => <div style={{ height: '50vh' }} />;
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -43,11 +47,13 @@ function Home({ scrollWrapperRef }) {
         <Marquee />
       </div>
 
-      <Services />
-      <ScrollIntro />
-      <WhyChooseUs />
-      <About />
-      <CTA />
+      <Suspense fallback={<SectionLoader />}>
+        <Services />
+        <ScrollIntro />
+        <WhyChooseUs />
+        <About />
+        <CTA />
+      </Suspense>
     </div>
   );
 }
@@ -60,7 +66,9 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <BackgroundMesh />
+      <Suspense fallback={null}>
+        <BackgroundMesh />
+      </Suspense>
       
       <Navbar />
 
@@ -68,7 +76,9 @@ export default function App() {
         <Route path="/" element={<Home scrollWrapperRef={scrollWrapperRef} />} />
         <Route path="/faq" element={
           <div className="page-wrapper">
-            <FAQ />
+            <Suspense fallback={<SectionLoader />}>
+              <FAQ />
+            </Suspense>
           </div>
         } />
       </Routes>

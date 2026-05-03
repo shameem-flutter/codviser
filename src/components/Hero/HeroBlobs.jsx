@@ -57,23 +57,27 @@ export default function HeroBlobs() {
         <div
           key={blob.id}
           ref={(el) => (blobRefs.current[i] = el)}
-          className="hero-blob"
+          className="hero-blob-parallax-wrapper"
           style={{
-            // Size
+            position: 'absolute',
             width: blob.size,
             height: blob.size,
-            // Position
             ...blob.position,
-            // Color
-            background: blob.gradient,
-            // Opacity
-            opacity: blob.opacity,
-            // Animation timing via CSS custom props
-            '--blob-dur': `${blob.animDur}s`,
-            '--blob-delay': `${blob.animDelay}s`,
-            // Parallax handled via ref for performance
+            willChange: 'transform',
           }}
-        />
+        >
+          <div
+            className="hero-blob"
+            style={{
+              width: '100%',
+              height: '100%',
+              background: blob.gradient,
+              opacity: blob.opacity,
+              '--blob-dur': `${blob.animDur}s`,
+              '--blob-delay': `${blob.animDelay}s`,
+            }}
+          />
+        </div>
       ))}
     </div>
   );
